@@ -9,12 +9,12 @@ export const HomePage = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-slate-950 relative overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-br from-gray-950 via-slate-900 to-slate-950 relative overflow-hidden">
         <BgShapes />
 
         <main className="relative z-10 container mx-auto px-6 py-12">
           <div className="text-center mb-12">
-            <h1 className="text-5xl/[1.2] md:text-7xl/[1.2]_ font-bold bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent mb-6 animate-fade-in">
+            <h1 className="text-5xl/[1.2] font-bold bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent mb-6 animate-fade-in">
               Projects
             </h1>
             <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed animate-fade-in delay-200">
