@@ -9,7 +9,7 @@ export const HomePage = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-black relative overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-slate-950 relative overflow-hidden">
         <BgShapes />
 
         <main className="relative z-10 container mx-auto px-6 py-12">

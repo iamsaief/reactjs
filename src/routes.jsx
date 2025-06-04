@@ -1,7 +1,17 @@
 import Project1 from "./projects/Project1";
 import Project2 from "./projects/project2";
+import { TaskManager } from "./projects/task-manager";
 
 export const routesData = [
+  {
+    id: "task-manager",
+    path: "/projects/task-manager",
+    name: "Task Manager",
+    element: <TaskManager />,
+    technologies: ["React", "Context API", "useReducer", "Tailwind CSS"],
+    status: "Completed",
+    year: "2025",
+  },
   {
     id: "project-1",
     path: "/projects/project-1",
