@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "name": "Premium Wireless Headphones",
+    "price": 299.99,
+    "image": "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=400&h=400&fit=crop",
+    "description": "High-quality wireless headphones with noise cancellation and premium sound quality.",
+    "category": "Electronics",
+    "rating": 4.8,
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": 2,
+    "name": "Smart Fitness Watch",
+    "price": 199.99,
+    "image": "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=400&fit=crop",
+    "description": "Advanced fitness tracking with heart rate monitoring and GPS functionality.",
+    "category": "Electronics",
+    "rating": 4.6,
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": 3,
+    "name": "Ergonomic Office Chair",
+    "price": 449.99,
+    "image": "https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=400&h=400&fit=crop",
+    "description": "Professional ergonomic office chair with lumbar support and adjustable height.",
+    "category": "Furniture",
+    "rating": 4.9,
+    "inStock": true,
+    "featured": true
+  },
+  {
+    "id": 4,
+    "name": "Organic Coffee Beans",
+    "price": 24.99,
+    "image": "https://images.unsplash.com/photo-1493962853295-0fd70327578a?w=400&h=400&fit=crop",
+    "description": "Premium organic coffee beans sourced from sustainable farms.",
+    "category": "Food",
+    "rating": 4.7,
+    "inStock": true,
+    "featured": false
+  },
+  {
+    "id": 5,
+    "name": "Minimalist Desk Lamp",
+    "price": 89.99,
+    "image": "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=400&h=400&fit=crop",
+    "description": "Modern LED desk lamp with adjustable brightness and USB charging port.",
+    "category": "Furniture",
+    "rating": 4.5,
+    "inStock": false,
+    "featured": false
+  },
+  {
+    "id": 6,
+    "name": "Professional Camera Lens",
+    "price": 799.99,
+    "image": "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=400&h=400&fit=crop",
+    "description": "High-performance camera lens for professional photography.",
+    "category": "Electronics",
+    "rating": 4.9,
+    "inStock": true,
+    "featured": true
+  }
+]
