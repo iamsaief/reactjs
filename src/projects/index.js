@@ -1,2 +1,2 @@
 export * from "./task-manager/TaskManager";
-export * from "./shop-cart/EliteShop";
+export * from "./elite-shop/EliteShop";

@@ -1,4 +1,5 @@
 import { EliteShop, TaskManager } from "./projects";
+import { Checkout } from "./projects/elite-shop/components/Checkout";
 import { ShoppingProvider } from "./projects/elite-shop/ShoppingContext";
 import Project1 from "./projects/Project1";
 import Project2 from "./projects/project2";

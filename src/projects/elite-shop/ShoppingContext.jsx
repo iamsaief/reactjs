@@ -227,7 +227,7 @@ export const ShoppingProvider = ({ children }) => {
               --input: hsl(214.3 31.8% 91.4%);
               --ring: hsl(222.2 84% 4.9%);
             }
-          `}</style>
+      `}</style>
       {children}
     </ShoppingContext.Provider>
   );
