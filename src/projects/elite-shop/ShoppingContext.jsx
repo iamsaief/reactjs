@@ -5,7 +5,7 @@
  */
 
 import { createContext, useContext, useReducer, useEffect, useState } from "react";
-import { cartReducer } from "./cartReducer";
+import { shoppingReducer } from "./shoppingReducer";
 import productsData from "./data/products.json";
 
 // Initial empty cart state
@@ -17,6 +17,7 @@ const initialCartState = {
   discount: 0,
   isLoading: false,
   error: null,
+  modal: { type: null, data: null }, // Centralized modal state
 };
 
 // Create context with undefined default to enforce provider usage
@@ -68,7 +69,7 @@ const saveCartToStorage = (cart) => {
  */
 export const ShoppingProvider = ({ children }) => {
   // Cart state managed by reducer with localStorage persistence
-  const [cart, dispatch] = useReducer(cartReducer, initialCartState, loadCartFromStorage);
+  const [cart, dispatch] = useReducer(shoppingReducer, initialCartState, loadCartFromStorage);
 
   // Product and UI state
   const [products, setProducts] = useState([]);
@@ -90,6 +91,7 @@ export const ShoppingProvider = ({ children }) => {
     const loadProducts = async () => {
       try {
         setIsLoading(true);
+
         // Simulate network delay for realistic loading experience
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -119,11 +121,13 @@ export const ShoppingProvider = ({ children }) => {
 
     // Apply search filter
     if (searchQuery) {
+      setIsLoading(true);
       filtered = filtered.filter(
         (product) =>
           product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
           product.description.toLowerCase().includes(searchQuery.toLowerCase())
       );
+      setTimeout(() => setIsLoading(false), 200);
     }
 
     setFilteredProducts(filtered);
@@ -181,7 +185,11 @@ export const ShoppingProvider = ({ children }) => {
    * Searches products by name or description
    */
   const searchProducts = (query) => {
-    setSearchQuery(query);
+    if (query.trim() === "") {
+      setSearchQuery("");
+      return;
+    }
+    setSearchQuery(query.trim());
   };
 
   // Context value object containing all state and methods
@@ -200,11 +208,11 @@ export const ShoppingProvider = ({ children }) => {
     categories,
     selectedCategory,
     searchQuery,
+    dispatch,
   };
 
   return (
     <ShoppingContext.Provider value={value}>
-      {/* Basic CSS for modal animations (can be inlined or in a <style> tag if preferred) */}
       <style>{`
             :root {
               --background: hsl(0 0% 100%);

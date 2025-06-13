@@ -44,7 +44,7 @@ const calculateTotals = (items) => {
  * @param action - Action to perform on the cart
  * @returns New cart state
  */
-export const cartReducer = (state, action) => {
+export const shoppingReducer = (state, action) => {
   switch (action.type) {
     case "ADD_ITEM": {
       // Check if item already exists in cart
@@ -113,6 +113,12 @@ export const cartReducer = (state, action) => {
         error: null,
       };
     }
+
+    case "OPEN_MODAL":
+      return { ...state, modal: { type: action.payload.type, data: action.payload.data } };
+
+    case "CLOSE_MODAL":
+      return { ...state, modal: { type: null, data: null } };
 
     case "SET_LOADING": {
       // Update loading state for async operations

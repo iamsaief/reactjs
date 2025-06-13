@@ -19,20 +19,22 @@ export const Modal = ({ children, isOpen, onClose, title, showCloseButton = true
     if (!modalRoot) return; // Prevent errors if modalRoot doesn't exist
 
     const currentEl = el.current;
+
     if (isOpen) {
       modalRoot.appendChild(currentEl);
-      // Add a class to body to prevent scrolling
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = "hidden"; // Prevent scrolling
     } else {
-      // Clean up when modal closes (or component unmounts)
-      if (modalRoot.contains(currentEl)) {
-        modalRoot.removeChild(currentEl);
-      }
-      document.body.style.overflow = "unset"; // Restore body scroll
+      const animationDuration = 300; // Match this with your CSS transition duration
+      setTimeout(() => {
+        if (modalRoot.contains(currentEl)) {
+          modalRoot.removeChild(currentEl);
+        }
+        document.body.style.overflow = "unset"; // Restore body scroll
+      }, animationDuration);
     }
 
+    // Cleanup on component unmount
     return () => {
-      // Cleanup on component unmount
       if (modalRoot.contains(currentEl)) {
         modalRoot.removeChild(currentEl);
       }
@@ -46,13 +48,13 @@ export const Modal = ({ children, isOpen, onClose, title, showCloseButton = true
 
   return ReactDOM.createPortal(
     <div
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 transition-opacity duration-300 ease-in-out animate-fadeIn border"
+      className={`fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 transition-opacity duration-300 ease-in-out animate-fadeIn`}
       onClick={onClose} // Close modal on backdrop click
       role="dialog"
       aria-modal="true"
     >
       <div
-        className={`border border-(--border) bg-(--background) p-6 rounded-lg w-full max-w-lg transform transition-all duration-300 ease-out animate-scaleUp ${className}`}
+        className={`border border-(--border) bg-(--background) p-6 rounded-lg w-full max-w-lg transition-all duration-300 ease-in-out animate-fadeIn ${className}`}
         onClick={(e) => e.stopPropagation()}
       >
         <div className={`flex justify-between items-center ${title ? "mb-6" : ""}`}>

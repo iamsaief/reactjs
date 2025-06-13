@@ -13,6 +13,7 @@ import { ProductFilters } from "./components/ProductFilters";
 import { Header } from "./components/Header";
 import { ShoppingProvider } from "./ShoppingContext";
 import "./styles.css";
+import { GlobalModal } from "./components/GlobalModal";
 
 export const EliteShop = () => {
   // Local state for cart sidebar visibility
@@ -27,7 +28,6 @@ export const EliteShop = () => {
 
   return (
     <ShoppingProvider>
-      {/* Basic CSS for modal animations (can be inlined or in a <style> tag if preferred) */}
       <style>{`
         :root {
           --background: hsl(0 0% 100%);
@@ -75,6 +75,9 @@ export const EliteShop = () => {
 
         {/* Cart sidebar overlay */}
         <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+
+        {/* Modals */}
+        <GlobalModal />
       </div>
     </ShoppingProvider>
   );

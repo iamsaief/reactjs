@@ -1,27 +1,14 @@
-import { useState } from "react";
-import { X, Plus, Minus, Trash2, MinusCircle, ShoppingCart } from "lucide-react";
+import { X, Plus, Minus, Trash2, ShoppingCart } from "lucide-react";
 import { useShoppingContext } from "../ShoppingContext";
 import { useNavigate } from "react-router";
 import { Button } from "./Button";
-import { Modal } from "./Modal";
 
 export const CartSidebar = ({ isOpen, onClose }) => {
-  const [showRemoveConfirm, setShowRemoveConfirm] = useState(false);
-  const [showClearCartConfirm, setShowClearCartConfirm] = useState(false);
-
-  const { cart, updateQuantity, removeFromCart, clearCart } = useShoppingContext();
+  const { cart, updateQuantity, dispatch } = useShoppingContext();
   const navigate = useNavigate();
 
   const handleQuantityChange = (id, newQuantity) => {
     updateQuantity(id, newQuantity);
-  };
-
-  const handleRemoveItem = (id) => {
-    removeFromCart(id);
-  };
-
-  const handleClearCart = () => {
-    clearCart();
   };
 
   const handleCheckout = () => {
@@ -29,7 +16,13 @@ export const CartSidebar = ({ isOpen, onClose }) => {
     navigate("/projects/elite-shop/checkout");
   };
 
-  const handleCloseConfirmRemove = () => {};
+  const handleConfirmRemove = (item) => {
+    dispatch({ type: "OPEN_MODAL", payload: { type: "REMOVE_ITEM", data: item } });
+  };
+
+  const handleConfirmClearCart = () => {
+    dispatch({ type: "OPEN_MODAL", payload: { type: "CLEAR_CART" } });
+  };
 
   if (!isOpen) return null;
 
@@ -82,43 +75,10 @@ export const CartSidebar = ({ isOpen, onClose }) => {
                           variant="ghost"
                           size="sm"
                           className="h-6! w-6 p-0 text-(--destructive) hover:text-(destructive)"
-                          onClick={() => {
-                            setShowRemoveConfirm(true);
-                            handleCloseConfirmRemove();
-                          }}
+                          onClick={() => handleConfirmRemove(item)}
                         >
                           <Trash2 className="h-3 w-3" />
                         </Button>
-
-                        <Modal
-                          isOpen={showRemoveConfirm}
-                          onClose={() => setShowRemoveConfirm(false)}
-                          showCloseButton={false} // No "X" button for delete confirmation
-                        >
-                          <div className="space-y-4">
-                            <h4 className="text-lg font-semibold mb-3">Remove Item</h4>
-                            <p className="text-sm text-(--muted-foreground)">
-                              Are you sure you want to remove "{item.name}" from your cart?
-                            </p>
-
-                            <div className="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
-                              <Button variant="outline" className="" onClick={() => setShowRemoveConfirm(false)}>
-                                Cancel
-                              </Button>
-
-                              <Button
-                                variant="default"
-                                className=""
-                                onClick={() => {
-                                  handleRemoveItem(item.id);
-                                  setShowRemoveConfirm(false);
-                                }}
-                              >
-                                Remove
-                              </Button>
-                            </div>
-                          </div>
-                        </Modal>
                       </div>
                     </div>
                   </div>
@@ -150,39 +110,10 @@ export const CartSidebar = ({ isOpen, onClose }) => {
                   <Button
                     variant="outline"
                     className="w-full text-(--destructive) hover:text-(--destructive)"
-                    onClick={() => setShowClearCartConfirm(true)}
+                    onClick={handleConfirmClearCart}
                   >
                     Clear Cart
                   </Button>
-                  <Modal
-                    isOpen={showClearCartConfirm}
-                    onClose={() => setShowClearCartConfirm(false)}
-                    showCloseButton={false} // No "X" button for delete confirmation
-                  >
-                    <div className="space-y-4">
-                      <h4 className="text-lg font-semibold mb-3">Clear Cart</h4>
-                      <p className="text-sm text-(--muted-foreground)">
-                        Are you sure you want to clear your entire cart? This action cannot be undone.
-                      </p>
-
-                      <div className="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
-                        <Button variant="outline" className="" onClick={() => setShowClearCartConfirm(false)}>
-                          Cancel
-                        </Button>
-
-                        <Button
-                          variant="default"
-                          className=""
-                          onClick={() => {
-                            handleClearCart();
-                            setShowClearCartConfirm(false);
-                          }}
-                        >
-                          Clear Cart
-                        </Button>
-                      </div>
-                    </div>
-                  </Modal>
                 </div>
               </div>
             )}
