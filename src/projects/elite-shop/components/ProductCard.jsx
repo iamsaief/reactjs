@@ -25,7 +25,7 @@ export const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="rounded-lg border border-(--border) bg-(--card) text-(--card-foreground) shadow-sm group overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+    <div className="rounded-lg border border-(--border) bg-(--card) text-(--card-foreground) shadow-sm group overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-fade-in">
       {/* Product image with overlay states */}
       <div className="relative overflow-hidden">
         <img
