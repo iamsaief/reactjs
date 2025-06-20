@@ -13,6 +13,7 @@ import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
 import { useAppSelector, useAppDispatch } from "../store";
 import { toggleSidebar } from "../store/slices/uiSlice";
+import { Heart } from "lucide-react";
 
 export const DashboardLayout = ({ children }) => {
   // Get sidebar state from Redux store
@@ -39,6 +40,16 @@ export const DashboardLayout = ({ children }) => {
 
         {/* Main content with responsive padding */}
         <main className="p-4 sm:p-6">{children}</main>
+
+        {/* Footer */}
+        <footer className=" text-gray-300 border-gray-300/10 border-t mt-50 py-6 text-center">
+          <p className="text-gray-500 text-sm flex items-center justify-center gap-1">
+            Made with <Heart className="h-4 w-4" /> by{" "}
+            <a href="https://www.linkedin.com/in/saiefalemon/" className="hover:underline">
+              Saief Al Emon
+            </a>
+          </p>
+        </footer>
       </div>
     </div>
   );

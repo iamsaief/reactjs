@@ -14,6 +14,7 @@ import { Header } from "./components/Header";
 import { ShoppingProvider } from "./ShoppingContext";
 import "./styles.css";
 import { GlobalModal } from "./components/GlobalModal";
+import { PageMeta } from "../../components/PageMeta";
 
 export const EliteShop = () => {
   // Local state for cart sidebar visibility
@@ -28,6 +29,7 @@ export const EliteShop = () => {
 
   return (
     <ShoppingProvider>
+      <PageMeta title="EliteShop" />
       <style>{`
         :root {
           --background: hsl(0 0% 100%);

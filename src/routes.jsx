@@ -24,7 +24,7 @@ export const routesData = [
     metadata: {
       name: "Elite Shop",
       technologies: ["React", "Context API", "useReducer", "Tailwind CSS"],
-      status: "In Progress",
+      status: "Completed",
       year: "2025",
     },
   },
@@ -42,8 +42,8 @@ export const routesData = [
     element: <XDashboard />,
     metadata: {
       name: "X Dashboard",
-      technologies: ["React", "Redux", "React Toolkit", "Tailwind CSS"],
-      status: "In Progress",
+      technologies: ["React", "Redux", "Redux-Toolkit", "Tailwind CSS"],
+      status: "Completed",
       year: "2025",
     },
   },

@@ -13,6 +13,7 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 import { Dashboard } from "./pages";
 import { ThemeProvider } from "./context/ThemeContext";
+import { PageMeta } from "../../components/PageMeta";
 import "./style.css";
 
 export const XDashboardProviderWrapper = ({ children }) => {
@@ -26,6 +27,7 @@ export const XDashboardProviderWrapper = ({ children }) => {
 export const XDashboard = () => {
   return (
     <XDashboardProviderWrapper>
+      <PageMeta title="XDashboard" />
       <Dashboard />
     </XDashboardProviderWrapper>
   );

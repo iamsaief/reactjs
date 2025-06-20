@@ -1,14 +1,17 @@
-import { AppWindow, Component } from "lucide-react";
+import { AppWindow, Component, Heart } from "lucide-react";
 import { useState } from "react";
 import { BgShapes } from "./BgShapes";
 import { LayoutProject } from "./LayoutProject";
 import { LayoutComponent } from "./LayoutComponent";
+import { PageMeta } from "../../components/PageMeta";
 
 export const HomePage = () => {
   const [activeLayout, setActiveLayout] = useState("list-1");
 
   return (
     <>
+      <PageMeta title="React.js" favicon="⚛️" />
+
       <div className="min-h-screen bg-gradient-to-br from-gray-950 via-slate-900 to-slate-950 relative overflow-hidden">
         <BgShapes />
 
@@ -55,6 +58,16 @@ export const HomePage = () => {
           <div className="transition-all duration-500 ease-in-out">
             {activeLayout === "list-1" ? <LayoutProject /> : <LayoutComponent />}
           </div>
+
+          {/* Footer */}
+          <footer className="max-w-4xl mx-auto text-gray-300 border-gray-300/10 border-t mt-50 py-6 text-center">
+            <p className="text-gray-500 text-sm flex items-center justify-center gap-1">
+              Made with <Heart className="h-4 w-4" /> by{" "}
+              <a href="https://www.linkedin.com/in/saiefalemon/" className="hover:underline">
+                Saief Al Emon
+              </a>
+            </p>
+          </footer>
         </main>
       </div>
     </>
