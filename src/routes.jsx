@@ -1,7 +1,7 @@
 import { EliteShop, TaskManager, XDashboard, XDashboardProviderWrapper } from "./projects";
 import { Checkout } from "./projects/elite-shop/components/Checkout";
 import { ShoppingProvider } from "./projects/elite-shop/ShoppingContext";
-import { Analytics } from "./projects/x-dashboard/pages";
+import { Analytics, DataTable, Settings } from "./projects/x-dashboard/pages";
 
 const EliteShopProviderWrapper = ({ children }) => <ShoppingProvider>{children}</ShoppingProvider>;
 
@@ -52,6 +52,22 @@ export const routesData = [
     element: (
       <XDashboardProviderWrapper>
         <Analytics />
+      </XDashboardProviderWrapper>
+    ),
+  },
+  {
+    path: "/projects/x-dashboard/settings",
+    element: (
+      <XDashboardProviderWrapper>
+        <Settings />
+      </XDashboardProviderWrapper>
+    ),
+  },
+  {
+    path: "/projects/x-dashboard/data",
+    element: (
+      <XDashboardProviderWrapper>
+        <DataTable />
       </XDashboardProviderWrapper>
     ),
   },

@@ -12,9 +12,15 @@
 import { Provider } from "react-redux";
 import { store } from "./store";
 import { Dashboard } from "./pages";
+import { ThemeProvider } from "./context/ThemeContext";
+import "./style.css";
 
 export const XDashboardProviderWrapper = ({ children }) => {
-  return <Provider store={store}>{children}</Provider>;
+  return (
+    <Provider store={store}>
+      <ThemeProvider>{children}</ThemeProvider>
+    </Provider>
+  );
 };
 
 export const XDashboard = () => {

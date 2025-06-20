@@ -2,6 +2,8 @@ import { DashboardLayout } from "../components/DashboardLayout";
 import { StatsCard } from "../components/StatsCard";
 import { DashboardWidget } from "../components/DashboardWidget";
 import { User, BarChart3, Calendar, Clock } from "lucide-react";
+import { DashboardLineChart } from "../components/charts/LineChart";
+import { DashboardBarChart } from "../components/charts/BarChart";
 
 export const Dashboard = () => {
   return (
@@ -48,8 +50,12 @@ export const Dashboard = () => {
 
         {/* Charts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <DashboardWidget title="Revenue Trends">{/* <DashboardLineChart /> */}</DashboardWidget>
-          <DashboardWidget title="Monthly Comparison">{/* <DashboardBarChart /> */}</DashboardWidget>
+          <DashboardWidget title="Revenue Trends">
+            <DashboardLineChart />
+          </DashboardWidget>
+          <DashboardWidget title="Monthly Comparison">
+            <DashboardBarChart />
+          </DashboardWidget>
         </div>
 
         {/* Recent Activity */}

@@ -13,10 +13,10 @@
 export const DashboardWidget = ({ title, children, className = "", icon }) => {
   return (
     <div
-      className={`bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 ${className}`}
+      className={`bg-white dark:bg-slate-800 rounded-xl shadow-xs border border-slate-200 dark:border-slate-700 p-6 ${className}`}
     >
       <div className="flex items-center space-x-2 mb-4">
-        {icon && <div className="p-1">{icon}</div>}
+        {icon && <div className="p-1 text-slate-900 dark:text-white">{icon}</div>}
         <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{title}</h3>
       </div>
       {children}

@@ -28,7 +28,7 @@ export const DashboardLayout = ({ children }) => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex">
+    <div className="x-dashboard-root min-h-screen bg-slate-50 dark:bg-slate-900 flex">
       {/* Sidebar with Redux state management */}
       <Sidebar collapsed={sidebarCollapsed} onToggle={handleSidebarToggle} />
 

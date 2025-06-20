@@ -14,6 +14,7 @@
 import { useState } from "react";
 import { Bell, Menu, User, Search } from "lucide-react";
 import { useAppSelector } from "../store";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 
 export const Header = ({ onToggleSidebar }) => {
   // Get notifications count from Redux store
@@ -72,12 +73,12 @@ export const Header = ({ onToggleSidebar }) => {
       {/* Right section: Theme + Notifications + User */}
       <div className="flex items-center space-x-3">
         {/* Theme switcher component */}
-        {/* <ThemeSwitcher /> */}
+        <ThemeSwitcher />
 
         {/* Notifications bell with badge */}
         <button
           onClick={handleNotificationClick}
-          className="relative p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+          className="relative p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
           aria-label={`${notifications} notifications`}
         >
           <Bell className="w-5 h-5 text-slate-600 dark:text-slate-400" />
