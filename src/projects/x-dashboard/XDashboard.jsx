@@ -11,11 +11,16 @@
 
 import { Provider } from "react-redux";
 import { store } from "./store";
+import { Dashboard } from "./pages";
+
+export const XDashboardProviderWrapper = ({ children }) => {
+  return <Provider store={store}>{children}</Provider>;
+};
 
 export const XDashboard = () => {
   return (
-    <>
-      <Provider store={store}>X Dashboard</Provider>
-    </>
+    <XDashboardProviderWrapper>
+      <Dashboard />
+    </XDashboardProviderWrapper>
   );
 };

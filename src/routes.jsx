@@ -1,8 +1,7 @@
-import { EliteShop, TaskManager, XDashboard } from "./projects";
+import { EliteShop, TaskManager, XDashboard, XDashboardProviderWrapper } from "./projects";
 import { Checkout } from "./projects/elite-shop/components/Checkout";
 import { ShoppingProvider } from "./projects/elite-shop/ShoppingContext";
-import Project1 from "./projects/Project1";
-import Project2 from "./projects/project2";
+import { Analytics } from "./projects/x-dashboard/pages";
 
 const EliteShopProviderWrapper = ({ children }) => <ShoppingProvider>{children}</ShoppingProvider>;
 
@@ -47,5 +46,13 @@ export const routesData = [
       status: "In Progress",
       year: "2025",
     },
+  },
+  {
+    path: "/projects/x-dashboard/analytics",
+    element: (
+      <XDashboardProviderWrapper>
+        <Analytics />
+      </XDashboardProviderWrapper>
+    ),
   },
 ];
