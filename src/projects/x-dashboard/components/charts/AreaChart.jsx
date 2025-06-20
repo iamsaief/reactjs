@@ -28,10 +28,16 @@ export const DashboardAreaChart = () => {
         <YAxis className="text-slate-600 dark:text-slate-400" />
         <Tooltip
           contentStyle={{
+            padding: "10px",
             backgroundColor: "hsl(var(--card))",
+            color: "hsl(var(--card-foreground))",
             border: "1px solid hsl(var(--border))",
             borderRadius: "8px",
-            color: "hsl(var(--card-foreground))",
+            textTransform: "capitalize",
+            fontSize: "0.8rem",
+            lineHeight: "1",
+            display: "grid",
+            gap: "5px",
           }}
         />
         <Area

@@ -15,6 +15,8 @@ export const routesData = [
       technologies: ["React", "Context API", "useReducer", "Tailwind CSS"],
       status: "Completed",
       year: "2025",
+      link: "#",
+      sourceCode: "#",
     },
   },
   {
@@ -26,6 +28,8 @@ export const routesData = [
       technologies: ["React", "Context API", "useReducer", "Tailwind CSS"],
       status: "Completed",
       year: "2025",
+      link: "#",
+      sourceCode: "#",
     },
   },
   {
@@ -45,6 +49,8 @@ export const routesData = [
       technologies: ["React", "Redux", "Redux-Toolkit", "Tailwind CSS"],
       status: "Completed",
       year: "2025",
+      link: "#",
+      sourceCode: "#",
     },
   },
   {
