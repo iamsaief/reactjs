@@ -1,4 +1,4 @@
-import { EliteShop, TaskManager } from "./projects";
+import { EliteShop, TaskManager, XDashboard } from "./projects";
 import { Checkout } from "./projects/elite-shop/components/Checkout";
 import { ShoppingProvider } from "./projects/elite-shop/ShoppingContext";
 import Project1 from "./projects/Project1";
@@ -38,25 +38,14 @@ export const routesData = [
     ),
   },
   {
-    id: "project-1",
-    path: "/projects/project-1",
-    element: <Project1 />,
+    id: "x-dashboard",
+    path: "/projects/x-dashboard",
+    element: <XDashboard />,
     metadata: {
-      name: "Awesome Project 1",
-      technologies: ["React", "Context API", "useReducer", "Tailwind CSS"],
-      status: "Completed",
-      year: "2024",
-    },
-  },
-  {
-    id: "project-2",
-    path: "/projects/project-2",
-    element: <Project2 />,
-    metadata: {
-      name: "Cool Project 2",
-      technologies: ["React", "TypeScript", "Tailwind CSS"],
-      status: "Completed",
-      year: "2024",
+      name: "X Dashboard",
+      technologies: ["React", "Redux", "React Toolkit", "Tailwind CSS"],
+      status: "In Progress",
+      year: "2025",
     },
   },
 ];
