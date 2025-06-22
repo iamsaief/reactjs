@@ -10,10 +10,15 @@
  * @param icon - Optional icon to display next to the title
  */
 
+import { cn } from "../../../utils/cn";
+
 export const DashboardWidget = ({ title, children, className = "", icon }) => {
   return (
     <div
-      className={`bg-white dark:bg-slate-800 rounded-xl shadow-xs border border-slate-200 dark:border-slate-700 p-6 ${className}`}
+      className={cn(
+        "bg-white dark:bg-slate-800 rounded-xl shadow-xs border border-slate-200 dark:border-slate-700 p-6",
+        className
+      )}
     >
       <div className="flex items-center space-x-2 mb-4">
         {icon && <div className="p-1 text-slate-900 dark:text-white">{icon}</div>}

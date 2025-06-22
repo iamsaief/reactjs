@@ -43,7 +43,7 @@ export const Header = ({ onToggleSidebar }) => {
   };
 
   return (
-    <header className="h-16 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between px-4 sm:px-6">
+    <header className="sticky top-0 z-10 h-16 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between px-4 sm:px-6">
       {/* Left section: Mobile menu + Search */}
       <div className="flex items-center space-x-4">
         {/* Mobile sidebar toggle - hidden on desktop */}

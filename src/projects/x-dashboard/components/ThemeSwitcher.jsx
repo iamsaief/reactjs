@@ -1,5 +1,6 @@
 import { Moon, Sun, Monitor } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
+import { cn } from "../../../utils/cn";
 
 export const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme();
@@ -17,11 +18,12 @@ export const ThemeSwitcher = () => {
           <button
             key={value}
             onClick={() => setTheme(value)}
-            className={`flex items-center justify-center w-8 h-8 rounded-full transition-all ${
+            className={cn(
+              "flex items-center justify-center w-8 h-8 rounded-full transition-all",
               theme === value
                 ? "bg-white dark:bg-slate-600 shadow-sm text-slate-900 dark:text-white"
                 : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
-            }`}
+            )}
             title={label}
           >
             <Icon className="w-4 h-4" />
