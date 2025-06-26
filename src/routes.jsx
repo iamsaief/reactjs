@@ -1,4 +1,4 @@
-import { EliteShop, TaskManager, XDashboard, XDashboardProviderWrapper } from "./projects";
+import { EliteShop, ResumeEnhancer, TaskManager, XDashboard, XDashboardProviderWrapper } from "./projects";
 import { Checkout } from "./projects/elite-shop/components/Checkout";
 import { ShoppingProvider } from "./projects/elite-shop/ShoppingContext";
 import { Analytics, DataTable, Settings } from "./projects/x-dashboard/pages";
@@ -73,5 +73,17 @@ export const routesData = [
         <DataTable />
       </XDashboardProviderWrapper>
     ),
+  },
+  {
+    id: "resume-enhancer",
+    path: "/projects/resume-enhancer",
+    element: <ResumeEnhancer />,
+    metadata: {
+      name: "Resume Enhancer",
+      technologies: ["React", "Redux", "Redux-Toolkit", "Tailwind CSS"],
+      status: "In Progress",
+      year: "2025",
+      sourceCode: `https://github.com/iamsaief/reactjs/tree/main/src/projects/resume-enhancer`,
+    },
   },
 ];
