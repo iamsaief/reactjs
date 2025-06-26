@@ -2,9 +2,11 @@ import { X, Plus, Minus, Trash2, ShoppingCart } from "lucide-react";
 import { useShoppingContext } from "../ShoppingContext";
 import { useNavigate } from "react-router";
 import { Button } from "./Button";
+import { useCallback, useEffect } from "react";
 
 export const CartSidebar = ({ isOpen, onClose }) => {
   const { cart, updateQuantity, dispatch } = useShoppingContext();
+
   const navigate = useNavigate();
 
   const handleQuantityChange = (id, newQuantity) => {
@@ -24,11 +26,36 @@ export const CartSidebar = ({ isOpen, onClose }) => {
     dispatch({ type: "OPEN_MODAL", payload: { type: "CLEAR_CART" } });
   };
 
+  const handleKeyDown = useCallback(
+    (e) => {
+      if (e.key === "Escape") {
+        if (cart?.modal?.type) {
+          dispatch({ type: "CLOSE_MODAL" }); // Close the modal first
+        } else if (isOpen) {
+          onClose(); // Then close the sidebar on next Escape
+        }
+        e.stopPropagation();
+      }
+    },
+    [isOpen, cart.modal.type, dispatch, onClose]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [handleKeyDown]);
+
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden">
-      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
+      <div
+        className="backdrop absolute inset-0 bg-black/50"
+        onClick={(e) => {
+          onClose();
+          e.stopPropagation();
+        }}
+      />
       <div className="absolute right-0 top-0 h-full w-full max-w-md bg-background shadow-lg">
         <div className=" bg-white text-black shadow-sm h-full rounded-none border-0">
           <div className="p-6 flex flex-row items-center justify-between space-y-0 pb-4">

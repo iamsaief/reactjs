@@ -1,5 +1,5 @@
 // src/components/Modal.jsx
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import ReactDOM from "react-dom";
 
@@ -23,7 +23,9 @@ export const Modal = ({ children, isOpen, onClose, title, showCloseButton = true
     if (isOpen) {
       modalRoot.appendChild(currentEl);
       document.body.style.overflow = "hidden"; // Prevent scrolling
+      document.addEventListener("keydown", handleClose);
     } else {
+      document.removeEventListener("keydown", handleClose);
       const animationDuration = 300; // Match this with your CSS transition duration
       setTimeout(() => {
         if (modalRoot.contains(currentEl)) {
@@ -39,8 +41,18 @@ export const Modal = ({ children, isOpen, onClose, title, showCloseButton = true
         modalRoot.removeChild(currentEl);
       }
       document.body.style.overflow = "unset"; // Ensure scroll is restored
+      document.removeEventListener("keydown", handleClose);
     };
-  }, [isOpen, modalRoot]); // Dependency on isOpen and modalRoot
+  }, [isOpen, modalRoot, onClose]); // Dependency on isOpen and modalRoot
+
+  const handleClose = useCallback(
+    (e) => {
+      if (e.key === "Escape" && isOpen) {
+        onClose();
+      }
+    },
+    [isOpen, onClose]
+  );
 
   if (!isOpen) {
     return null;
