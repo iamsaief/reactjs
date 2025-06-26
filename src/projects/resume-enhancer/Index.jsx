@@ -1,4 +1,8 @@
-import { FileText, Heart, Sparkles } from "lucide-react";
+import { FileText, Heart, Sparkles, Type, Upload } from "lucide-react";
+import ErrorDisplay from "./components/ErrorDisplay";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/Tabs";
+import { FileUpload } from "./components/FileUpload";
+import { TextInput } from "./components/TextInput";
 
 export const Index = () => {
   return (
@@ -20,7 +24,8 @@ export const Index = () => {
         </div>
 
         <div className="space-y-8">
-          {/* TODO: Error Display */}
+          {/* Error Display */}
+          <ErrorDisplay />
 
           {/* Input Section */}
           <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
@@ -30,6 +35,32 @@ export const Index = () => {
             </h2>
 
             {/* Tab - Upload and Paste */}
+            <Tabs defaultValue="upload" className="space-y-6">
+              <TabsList className="grid w-full grid-cols-2 bg-gray-50 p-1.5 rounded-xl h-auto">
+                <TabsTrigger
+                  value="upload"
+                  className="flex items-center justify-center space-x-2 data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-blue-600 rounded-lg py-3 px-4 font-medium transition-all"
+                >
+                  <Upload className="w-4 h-4" />
+                  <span>Upload File</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="text"
+                  className="flex items-center justify-center space-x-2 data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-blue-600 rounded-lg py-3 px-4 font-medium transition-all"
+                >
+                  <Type className="w-4 h-4" />
+                  <span>Paste Text</span>
+                </TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="upload" className="mt-6">
+                <FileUpload />
+              </TabsContent>
+
+              <TabsContent value="text" className="mt-6">
+                <TextInput />
+              </TabsContent>
+            </Tabs>
           </div>
 
           {/* API Configuration */}
