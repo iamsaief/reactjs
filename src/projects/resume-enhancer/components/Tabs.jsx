@@ -143,7 +143,7 @@ const TabsTrigger = ({ value, className = "", children, onClick, disabled = fals
   };
 
   const baseClasses =
-    "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2";
+    "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-blue-500";
   const activeClasses = isActive ? "bg-white text-gray-900 shadow-sm" : "hover:bg-gray-50 hover:text-gray-900";
   const disabledClasses = disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer";
 

@@ -6,7 +6,7 @@ const initialState = {
   isLoading: false,
   error: null,
   apiKey: "",
-  selectedProvider: "claude",
+  selectedProvider: "gemini",
 };
 
 export const enhanceResume = createAsyncThunk("resume/enhance", async (_, { getState }) => {
@@ -81,7 +81,7 @@ ${originalResume}`;
         };
         break;
       case "gemini":
-        apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+        apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
         headers = {
           "Content-Type": "application/json",
         };

@@ -3,8 +3,16 @@ import ErrorDisplay from "./components/ErrorDisplay";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/Tabs";
 import { FileUpload } from "./components/FileUpload";
 import { TextInput } from "./components/TextInput";
+import { ApiKeyInput } from "./components/ApiKeyInput";
+import { OptimizeButton } from "./components/OptimizeButton";
+import { ResumeComparison } from "./components/ResumeComparison";
+import { useAppSelector } from "./store";
+import { DownloadOptions } from "./components/DownloadOptions";
 
 export const Index = () => {
+  const { originalResume, enhancedResume } = useAppSelector((state) => state.resume);
+  const showComparison = originalResume.trim().length > 0;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       <div className="container mx-auto px-4 py-8 max-w-7xl">
@@ -64,20 +72,26 @@ export const Index = () => {
           </div>
 
           {/* API Configuration */}
+          <ApiKeyInput />
 
           {/* Optimize Button */}
+          <OptimizeButton />
 
           {/* Resume Comparison - Only show when there's original content */}
-          <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Resume Comparison</h2>
-          </div>
+          {showComparison && (
+            <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Resume Comparison</h2>
+              <ResumeComparison />
+            </div>
+          )}
 
           {/* Download Options - Only show when there's enhanced resume */}
+          {enhancedResume && <DownloadOptions />}
         </div>
 
         {/* Footer */}
         <div className="text-center mt-16 py-8 border-t border-gray-200">
-          <p className="text-gray-500 text-sm- flex items-center justify-center gap-1">
+          <p className="text-gray-600 flex items-center justify-center gap-1">
             Build with <Heart className="h-4 w-4" /> by{" "}
             <a href="https://www.linkedin.com/in/saiefalemon/" className="hover:underline">
               Saief Al Emon
