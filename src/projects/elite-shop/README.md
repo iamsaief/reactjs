@@ -21,4 +21,4 @@ This project demonstrates **senior-level frontend development capabilities** inc
 
 ---
 
-> **Keywords**: Frontend DEveloper, React Development, Frontend Engineer, State Management, Responsive Design, Performance Optimization, Component Architecture, Modern JavaScript, UI/UX Development, Tailwind CSS, React Hooks, Context API, E-commerce Shopping Cart Development, SPA Development, Mobile-First Design
+> **Keywords**: Frontend Developer, React Development, Frontend Engineer, State Management, Responsive Design, Performance Optimization, Component Architecture, Modern JavaScript, UI/UX Development, Tailwind CSS, React Hooks, Context API, E-commerce Shopping Cart Development, SPA Development, Mobile-First Design
