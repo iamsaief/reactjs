@@ -8,7 +8,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-button {
+button:not(:disabled) {
   cursor: pointer;
 }
 

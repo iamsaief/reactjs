@@ -1,6 +1,7 @@
 import { RefreshCw, Sparkles } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "../store";
 import { clearResumes, enhanceResume } from "../store/slices/resumeSlice";
+import { cn } from "../../../utils/cn";
 
 export const OptimizeButton = () => {
   const dispatch = useAppDispatch();
@@ -23,11 +24,12 @@ export const OptimizeButton = () => {
       <button
         onClick={handleOptimize}
         disabled={isDisabled}
-        className={`flex-1 flex items-center justify-center space-x-2 py-4 px-6 rounded-xl font-semibold text-white transition-all duration-300 ${
+        className={cn(
+          "flex-1 flex items-center justify-center space-x-2 py-4 px-6 rounded-xl font-semibold text-white transition-all duration-300",
           isDisabled
             ? "bg-gray-400 cursor-not-allowed"
             : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 hover:scale-[1.02] shadow-lg hover:shadow-xl"
-        }`}
+        )}
       >
         {isLoading ? (
           <>
