@@ -1,4 +1,4 @@
-import { EliteShop, ResumeEnhancer, TaskManager, XDashboard, XDashboardProviderWrapper } from "./projects";
+import { ChronoCraft, EliteShop, ResumeEnhancer, TaskManager, XDashboard, XDashboardProviderWrapper } from "./projects";
 import { Checkout } from "./projects/elite-shop/components/Checkout";
 import { ShoppingProvider } from "./projects/elite-shop/ShoppingContext";
 import { Analytics, DataTable, Settings } from "./projects/x-dashboard/pages";
@@ -16,6 +16,18 @@ export const routesData = [
       status: "Completed",
       year: "2025",
       sourceCode: "https://github.com/iamsaief/reactjs/tree/main/src/projects/task-manager",
+    },
+  },
+  {
+    id: "chrono-craft",
+    path: "/projects/chrono-craft",
+    element: <ChronoCraft />,
+    metadata: {
+      name: "Chrono Craft",
+      technologies: ["React", "Context API", "useReducer", "Tailwind CSS"],
+      status: "In Progress",
+      year: "2025",
+      sourceCode: `https://github.com/iamsaief/reactjs/tree/main/src/projects/chrono-craft`,
     },
   },
   {
