@@ -25,7 +25,7 @@ export const routesData = [
     metadata: {
       name: "Chrono Craft",
       technologies: ["React", "Context API", "useReducer", "Tailwind CSS"],
-      status: "In Progress",
+      status: "Completed",
       year: "2025",
       sourceCode: `https://github.com/iamsaief/reactjs/tree/main/src/projects/chrono-craft`,
     },
