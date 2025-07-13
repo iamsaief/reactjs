@@ -62,7 +62,7 @@ export const HomePage = () => {
           {/* Footer */}
           <footer className="max-w-4xl mx-auto text-gray-300 border-gray-300/10 border-t mt-50 py-6 text-center">
             <p className="text-gray-500 text-sm flex items-center justify-center gap-1">
-              Made with <Heart className="h-4 w-4" /> by{" "}
+              Build with <Heart className="h-4 w-4" /> by{" "}
               <a href="https://www.linkedin.com/in/saiefalemon/" className="hover:underline">
                 Saief Al Emon
               </a>
