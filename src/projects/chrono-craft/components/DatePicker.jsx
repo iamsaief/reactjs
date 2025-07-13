@@ -1,14 +1,23 @@
 import { useState, useRef, useEffect, useCallback, useMemo, memo } from "react";
 import { getDaysInMonth, getFirstDayOfMonth } from "../utils/dateUtils";
 
+/**
+ * A fully custom, reusable, and accessible DatePicker component.
+ * It supports day, month, and year views, keyboard navigation, and min/max date constraints.
+ */
 const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
+  // State for controlling the picker's visibility.
   const [isOpen, setIsOpen] = useState(false);
+  // State for the current view (days, months, or years).
   const [view, setView] = useState("days");
+  // State for the date that the calendar is currently displaying (e.g., which month).
   const [viewDate, setViewDate] = useState(selectedDate || new Date());
+  // Ref for the main picker element to detect outside clicks.
   const pickerRef = useRef(null);
-
+  // Memoize the calculation of the year range for the 'years' view.
   const years = useMemo(() => Array.from({ length: 12 }, (_, i) => viewDate.getFullYear() - 6 + i), [viewDate]);
 
+  // Effect to handle clicks outside the date picker to close it.
   useEffect(() => {
     function handleClickOutside(event) {
       if (pickerRef.current && !pickerRef.current.contains(event.target)) {
@@ -19,6 +28,7 @@ const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Effect to handle the 'Escape' key press to close the picker.
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
@@ -34,12 +44,16 @@ const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
     };
   }, [isOpen]);
 
+  // Effect to update the view date when the selected date prop changes.
   useEffect(() => {
     if (selectedDate) {
       setViewDate(selectedDate);
     }
   }, [selectedDate]);
 
+  // --- Memoized Callback Handlers ---
+  // useCallback is used to ensure these functions have a stable identity across re-renders,
+  // which is crucial for performance and preventing unnecessary re-renders of child elements.
   const handleDateSelect = useCallback(
     (day) => {
       const newDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), day);
@@ -52,7 +66,7 @@ const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
   const handleMonthSelect = useCallback(
     (month) => {
       setViewDate(new Date(viewDate.getFullYear(), month, 1));
-      setView("days");
+      setView("days"); // Switch back to the day view.
     },
     [viewDate]
   );
@@ -60,11 +74,12 @@ const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
   const handleYearSelect = useCallback(
     (year) => {
       setViewDate(new Date(year, viewDate.getMonth(), 1));
-      setView("months");
+      setView("months"); // Switch to the month view after selecting a year.
     },
     [viewDate]
   );
 
+  // Navigation callbacks
   const prevMonth = useCallback(() => setViewDate((d) => new Date(d.getFullYear(), d.getMonth() - 1, 1)), []);
   const nextMonth = useCallback(() => setViewDate((d) => new Date(d.getFullYear(), d.getMonth() + 1, 1)), []);
   const prevYear = useCallback(() => setViewDate((d) => new Date(d.getFullYear() - 1, d.getMonth(), 1)), []);
@@ -72,10 +87,12 @@ const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
   const prevYearRange = useCallback(() => setViewDate((d) => new Date(d.getFullYear() - 12, d.getMonth(), 1)), []);
   const nextYearRange = useCallback(() => setViewDate((d) => new Date(d.getFullYear() + 12, d.getMonth(), 1)), []);
 
+  // Toggles between days -> months -> years views.
   const handleViewChange = useCallback(() => {
     setView((v) => (v === "days" ? "months" : "years"));
   }, []);
 
+  // Renders the grid of days for the current month.
   const renderDays = useCallback(() => {
     const daysInMonth = getDaysInMonth(viewDate.getFullYear(), viewDate.getMonth());
     const firstDay = getFirstDayOfMonth(viewDate.getFullYear(), viewDate.getMonth());
@@ -119,6 +136,7 @@ const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
     );
   }, [viewDate, selectedDate, minDate, maxDate, handleDateSelect]);
 
+  // Renders the grid of months.
   const renderMonths = useCallback(
     () => (
       <div className="grid grid-cols-3 gap-2">
@@ -136,6 +154,7 @@ const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
     [handleMonthSelect]
   );
 
+  // Renders the grid of years.
   const renderYears = useCallback(
     () => (
       <div className="grid grid-cols-3 gap-2">
@@ -153,6 +172,7 @@ const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
     [years, handleYearSelect]
   );
 
+  // Action button callbacks
   const handleTodayClick = useCallback(() => {
     onChange(new Date());
     setIsOpen(false);
@@ -165,6 +185,7 @@ const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
 
   return (
     <div className="relative" ref={pickerRef}>
+      {/* The main input-like button that opens the picker */}
       <button
         id={id}
         onClick={() => setIsOpen((o) => !o)}
@@ -173,8 +194,10 @@ const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
         <span>{selectedDate ? selectedDate.toLocaleDateString() : "Select a date"}</span>
         <CalendarIcon className="h-5 w-5 text-slate-400" />
       </button>
+      {/* The popover calendar */}
       {isOpen && (
         <div className="absolute z-10 mt-2 w-72 bg-white dark:bg-slate-800 rounded-lg shadow-2xl p-4 border border-slate-200 dark:border-slate-700 animate-fade-in">
+          {/* Calendar Header with navigation and view switcher */}
           <div className="flex justify-between items-center mb-4">
             <button
               onClick={view === "days" ? prevMonth : view === "months" ? prevYear : prevYearRange}
@@ -194,9 +217,13 @@ const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
               <ChevronRightIcon />
             </button>
           </div>
+
+          {/* Conditionally render the correct view */}
           {view === "days" && renderDays()}
           {view === "months" && renderMonths()}
           {view === "years" && renderYears()}
+
+          {/* Footer with Today and Clear buttons */}
           <div className="flex justify-between mt-4 text-sm">
             <button onClick={handleTodayClick} className="font-medium text-[rgb(79_70_229)] hover:underline">
               Today
@@ -213,6 +240,7 @@ const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
 
 export default memo(DatePicker);
 
+// Full month names, used in the DatePicker component.
 export const MONTH_NAMES = [
   "January",
   "February",
@@ -228,8 +256,12 @@ export const MONTH_NAMES = [
   "December",
 ];
 
+// Short day of the week names, used for the header in the DatePicker calendar view.
 export const DAYS_OF_WEEK_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+/**
+ * A simple, reusable SVG icon component for a calendar.
+ */
 export const CalendarIcon = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -247,6 +279,10 @@ export const CalendarIcon = ({ className }) => (
   </svg>
 );
 
+/**
+ * A simple, reusable SVG icon component for a left-facing chevron.
+ * Used for navigation in the DatePicker.
+ */
 export const ChevronLeftIcon = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -260,6 +296,10 @@ export const ChevronLeftIcon = ({ className }) => (
   </svg>
 );
 
+/**
+ * A simple, reusable SVG icon component for a right-facing chevron.
+ * Used for navigation in the DatePicker.
+ */
 export const ChevronRightIcon = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

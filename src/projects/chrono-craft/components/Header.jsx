@@ -1,6 +1,8 @@
 import { memo, useContext } from "react";
 import { AgeContext } from "../context/AgeProvider";
 
+// --- Reusable SVG Icon Components ---
+// These are defined locally to avoid external dependencies for simple icons.
 const SunIconComponent = () => (
   <svg
     className="w-6 h-6"
@@ -31,9 +33,15 @@ const MoonIconComponent = () => (
   </svg>
 );
 
+/**
+ * The Header component for the application.
+ * It displays the application title and a theme toggle button.
+ */
 const Header = () => {
+  // Access the global state and dispatch function from the context.
   const context = useContext(AgeContext);
 
+  // Gracefully handle the case where the context is not yet available.
   if (!context) {
     return null;
   }
@@ -41,6 +49,7 @@ const Header = () => {
   const { state, dispatch } = context;
   const isDark = state.theme === "dark";
 
+  // Function to toggle the theme by dispatching an action.
   const toggleTheme = () => {
     dispatch({ type: "SET_THEME", payload: isDark ? "light" : "dark" });
   };
@@ -56,6 +65,7 @@ const Header = () => {
           className="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary dark:focus-visible:ring-offset-slate-900"
           aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
         >
+          {/* Conditionally render the sun or moon icon based on the current theme. */}
           {isDark ? <SunIconComponent /> : <MoonIconComponent />}
         </button>
       </div>
@@ -63,4 +73,6 @@ const Header = () => {
   );
 };
 
+// Memoize the component to prevent re-renders if its props don't change.
+// This is useful because the Header only depends on the `theme` part of the state.
 export default memo(Header);

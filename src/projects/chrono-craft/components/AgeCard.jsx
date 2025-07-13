@@ -25,9 +25,6 @@ const AgeCard = () => {
   const { state } = context;
   const { name, age, quote, isLoadingQuote, dob } = state;
 
-  // Don't render the card until a date of birth has been entered.
-  if (!dob) return null;
-
   // Memoize the generation of the share text to prevent re-computation on every render.
   const shareText = useMemo(() => {
     if (!age || !quote) return "";
@@ -35,6 +32,9 @@ const AgeCard = () => {
     const quoteString = `Quote of the day: "${quote.text}" - ${quote.author}`;
     return `${ageString} Check out your age on ChronoCraft. ${quoteString}`;
   }, [age, quote]);
+
+  // Don't render the card until a date of birth has been entered.
+  if (!dob) return null;
 
   /**
    * Placeholder function for downloading the card as an image.
