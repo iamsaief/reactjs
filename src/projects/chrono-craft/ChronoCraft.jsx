@@ -18,7 +18,7 @@ export const ChronoCraft = () => {
     <AgeProvider>
       <PageMeta title="Chrono Craft" />
 
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-sans transition-colors duration-300">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-sans transition-colors duration-300 flex flex-col">
         <Header />
         <main className="container mx-auto p-4 md:p-8">
           {/* Main content area with a responsive grid layout. */}
@@ -36,7 +36,7 @@ export const ChronoCraft = () => {
             </div>
           </div>
         </main>
-        <footer className="text-center p-4 mt-8 text-sm text-slate-500 dark:text-slate-400">
+        <footer className="mt-auto px-4 py-8 text-center text-sm text-slate-500 dark:text-slate-400">
           <p className="text-gray-600 flex items-center justify-center gap-1">
             Build with <Heart className="h-4 w-4" /> by{" "}
             <a href="https://www.linkedin.com/in/saiefalemon/" className="hover:underline">
