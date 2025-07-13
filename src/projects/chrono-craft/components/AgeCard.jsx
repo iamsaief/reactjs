@@ -1,9 +1,10 @@
 import { useContext, useMemo, memo } from "react";
 import { AgeContext } from "../context/AgeProvider";
 
+// A decorative SVG icon for the blockquote.
 const QuoteIcon = () => (
   <svg
-    className="w-8 h-8 text-[rgb(79_70_229)]/30"
+    className="w-8 h-8 text-white/30"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     fill="currentColor"
@@ -13,6 +14,10 @@ const QuoteIcon = () => (
   </svg>
 );
 
+/**
+ * Displays a visually appealing "Age Card"
+ * summarizing the user's age and a generated quote.
+ */
 const AgeCard = () => {
   const context = useContext(AgeContext);
   if (!context) return null;
@@ -20,25 +25,35 @@ const AgeCard = () => {
   const { state } = context;
   const { name, age, quote, isLoadingQuote, dob } = state;
 
+  // Don't render the card until a date of birth has been entered.
   if (!dob) return null;
 
-  const shareText = () => {
-    if (!age) return "";
-    return `I'm ${age.years} years, ${age.months} months, and ${age.days} days old! Check out your age on ChronoCraft. Quote of the day: "${quote}"`;
-  };
+  // Memoize the generation of the share text to prevent re-computation on every render.
+  const shareText = useMemo(() => {
+    if (!age || !quote) return "";
+    const ageString = `I'm ${age.years} years, ${age.months} months, and ${age.days} days old!`;
+    const quoteString = `Quote of the day: "${quote.text}" - ${quote.author}`;
+    return `${ageString} Check out your age on ChronoCraft. ${quoteString}`;
+  }, [age, quote]);
 
+  /**
+   * Placeholder function for downloading the card as an image.
+   * In a real-world scenario, this would use a library like html2canvas.
+   */
   const handleDownload = () => {
     alert(
-      "In a real application, this would use a library like html2canvas to capture the card below as an image and trigger a download. This functionality is omitted to adhere to project constraints."
+      "In a real application, this would use a library like html2canvas to capture the card below as an image and trigger a download. This functionality is omitted to keep the example simple."
     );
   };
 
   return (
     <div className="mt-8 animate-slide-up [animation-delay:300ms]">
+      {/* Card component */}
       <div
         id="age-card"
         className="p-8 bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-indigo-800 dark:to-purple-900 rounded-2xl shadow-2xl text-white relative overflow-hidden"
       >
+        {/* Decorative background circles */}
         <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full"></div>
         <div className="absolute -bottom-16 -left-10 w-48 h-48 bg-white/10 rounded-full"></div>
 
@@ -51,17 +66,26 @@ const AgeCard = () => {
             </p>
           )}
 
+          {/* Quote Section */}
           <div className="mt-8 pt-6 border-t border-white/20">
             <QuoteIcon />
             {isLoadingQuote ? (
+              // Show a skeleton loader while the quote is being fetched.
               <div className="h-6 mt-2 bg-white/20 rounded-md animate-pulse w-3/4"></div>
             ) : (
-              <blockquote className="text-lg italic mt-2 text-indigo-100">"{quote}"</blockquote>
+              // Only render the quote section if a quote object exists.
+              quote && (
+                <>
+                  <blockquote className="text-lg italic mt-2 text-indigo-100">"{quote.text}"</blockquote>
+                  <p className="text-right text-sm mt-2 text-indigo-200/70">- {quote.author}</p>
+                </>
+              )
             )}
-            <p className="text-right text-sm mt-2 text-indigo-200/70">- Gemini AI</p>
           </div>
         </div>
       </div>
+
+      {/* Action buttons below the card */}
       <div className="mt-4 flex flex-col sm:flex-row items-center gap-4">
         <button
           onClick={handleDownload}
@@ -69,6 +93,8 @@ const AgeCard = () => {
         >
           Download Card
         </button>
+
+        {/* Social Sharing Links */}
         <div className="flex items-center gap-2">
           <a
             href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`}
