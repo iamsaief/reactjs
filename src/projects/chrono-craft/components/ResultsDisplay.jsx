@@ -45,6 +45,14 @@ export const ResultsDisplay = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [age?.years, dispatch]);
 
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
   // If no date of birth is selected, show a welcome/prompt message.
   if (!dob) {
     return (
@@ -65,7 +73,8 @@ export const ResultsDisplay = () => {
       {/* Primary Age Result Card */}
       <div className="p-6 bg-white dark:bg-slate-800/50 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700">
         <h3 className="text-xl font-semibold mb-4 text-slate-800 dark:text-slate-200">
-          {state.name ? `${state.name}'s Age` : "Your Age"} on {state.futureDate?.toLocaleDateString()}
+          {/* {state.name ? `${state.name}'s Age` : "Your Age"} on {state.futureDate?.toLocaleDateString()} */}
+          {state.name ? `${state.name}'s Age` : "Your Age"} on {formatDate(state.futureDate)}
         </h3>
         <div className="grid grid-cols-3 gap-4">
           <ResultItem value={age.years} label="Years" />
