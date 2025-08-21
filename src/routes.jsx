@@ -1,3 +1,4 @@
+import RecursiveFileTree from "./components/RecursiveFileTree";
 import {
   ChronoCraft,
   EliteShop,
@@ -9,7 +10,6 @@ import {
 } from "./projects";
 import { Checkout } from "./projects/elite-shop/components/Checkout";
 import { Analytics, DataTable, Settings } from "./projects/x-dashboard/pages";
-import RecursiveFileTree from "./components/RecursiveFileTree";
 
 export const projectRoutesData = [
   {
