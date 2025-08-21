@@ -1,8 +1,8 @@
 import { Link } from "react-router";
-import { routesData } from "../../routes";
+import { projectRoutesData } from "../../routes";
 import { ExternalLink, Github } from "lucide-react";
 
-const projectsData = routesData.filter((route) => route.metadata);
+const projectsData = projectRoutesData.filter((route) => route.metadata);
 
 export const LayoutProject = () => {
   return (

@@ -1,18 +1,29 @@
-import { ChronoCraft, EliteShop, ResumeEnhancer, TaskManager, XDashboard, XDashboardProviderWrapper } from "./projects";
+import {
+  ChronoCraft,
+  EliteShop,
+  EliteShopProviderWrapper,
+  ResumeEnhancer,
+  TaskManager,
+  XDashboard,
+  XDashboardProviderWrapper,
+} from "./projects";
 import { Checkout } from "./projects/elite-shop/components/Checkout";
-import { ShoppingProvider } from "./projects/elite-shop/ShoppingContext";
 import { Analytics, DataTable, Settings } from "./projects/x-dashboard/pages";
+import RecursiveFileTree from "./components/RecursiveFileTree";
 
-const EliteShopProviderWrapper = ({ children }) => <ShoppingProvider>{children}</ShoppingProvider>;
-
-export const routesData = [
+export const projectRoutesData = [
   {
     id: "10ms-ielts-course",
     path: "https://10ms-product-page.vercel.app",
     element: () => {},
     metadata: {
       name: "10MS IELTS Course",
-      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "API Integration"],
+      technologies: [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "API Integration",
+      ],
       status: "Completed",
       year: "2025",
       sourceCode: "https://github.com/iamsaief/10ms-product-page",
@@ -27,7 +38,8 @@ export const routesData = [
       technologies: ["React", "Context API", "useReducer", "Tailwind CSS"],
       status: "Completed",
       year: "2025",
-      sourceCode: "https://github.com/iamsaief/reactjs/tree/main/src/projects/task-manager",
+      sourceCode:
+        "https://github.com/iamsaief/reactjs/tree/main/src/projects/task-manager",
     },
   },
   {
@@ -51,7 +63,8 @@ export const routesData = [
       technologies: ["React", "Context API", "useReducer", "Tailwind CSS"],
       status: "Completed",
       year: "2025",
-      sourceCode: "https://github.com/iamsaief/reactjs/tree/main/src/projects/elite-shop",
+      sourceCode:
+        "https://github.com/iamsaief/reactjs/tree/main/src/projects/elite-shop",
     },
   },
   {
@@ -71,7 +84,8 @@ export const routesData = [
       technologies: ["React", "Redux", "Redux-Toolkit", "Tailwind CSS"],
       status: "Completed",
       year: "2025",
-      sourceCode: "https://github.com/iamsaief/reactjs/tree/main/src/projects/x-dashboard",
+      sourceCode:
+        "https://github.com/iamsaief/reactjs/tree/main/src/projects/x-dashboard",
     },
   },
   {
@@ -108,6 +122,17 @@ export const routesData = [
       status: "In Progress",
       year: "2025",
       sourceCode: `https://github.com/iamsaief/reactjs/tree/main/src/projects/resume-enhancer`,
+    },
+  },
+];
+
+export const componentRoutesData = [
+  {
+    id: "recursive-file-tree",
+    path: "/components/recursive-file-tree",
+    element: <RecursiveFileTree />,
+    metadata: {
+      name: "Recursive File Tree",
     },
   },
 ];

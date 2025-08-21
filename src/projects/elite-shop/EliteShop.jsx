@@ -16,6 +16,8 @@ import "./styles.css";
 import { GlobalModal } from "./components/GlobalModal";
 import { PageMeta } from "../../components/PageMeta";
 
+export const EliteShopProviderWrapper = ({ children }) => <ShoppingProvider>{children}</ShoppingProvider>;
+
 export const EliteShop = () => {
   // Local state for cart sidebar visibility
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -28,7 +30,7 @@ export const EliteShop = () => {
   };
 
   return (
-    <ShoppingProvider>
+    <EliteShopProviderWrapper>
       <PageMeta title="EliteShop" />
       <style>{`
         :root {
@@ -81,6 +83,6 @@ export const EliteShop = () => {
         {/* Modals */}
         <GlobalModal />
       </div>
-    </ShoppingProvider>
+    </EliteShopProviderWrapper>
   );
 };
