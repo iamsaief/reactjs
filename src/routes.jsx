@@ -7,6 +7,18 @@ const EliteShopProviderWrapper = ({ children }) => <ShoppingProvider>{children}<
 
 export const routesData = [
   {
+    id: "10ms-ielts-course",
+    path: "https://10ms-product-page.vercel.app",
+    element: () => {},
+    metadata: {
+      name: "10MS IELTS Course",
+      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "API Integration"],
+      status: "Completed",
+      year: "2025",
+      sourceCode: "https://github.com/iamsaief/10ms-product-page",
+    },
+  },
+  {
     id: "task-manager",
     path: "/projects/task-manager",
     element: <TaskManager />,
