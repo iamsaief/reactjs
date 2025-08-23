@@ -10,6 +10,7 @@ import {
 } from "./projects";
 import { Checkout } from "./projects/elite-shop/components/Checkout";
 import { Analytics, DataTable, Settings } from "./projects/x-dashboard/pages";
+import DatePickerDemo from "./components/date-picker/DatePicker";
 
 export const projectRoutesData = [
   {
@@ -133,6 +134,20 @@ export const componentRoutesData = [
     element: <RecursiveFileTree />,
     metadata: {
       name: "Recursive File Tree",
+      technologies: ["React", "Tailwind CSS", "Framer Motion"],
+      year: "2025",
+      tag: "UI",
+    },
+  },
+  {
+    id: "date-picker",
+    path: "/components/date-picker",
+    element: <DatePickerDemo />,
+    metadata: {
+      name: "Date Picker",
+      technologies: ["React", "Tailwind CSS", "Framer Motion"],
+      year: "2025",
+      tag: "Data Display",
     },
   },
 ];

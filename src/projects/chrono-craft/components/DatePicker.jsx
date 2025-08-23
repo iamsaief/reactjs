@@ -15,7 +15,10 @@ const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
   // Ref for the main picker element to detect outside clicks.
   const pickerRef = useRef(null);
   // Memoize the calculation of the year range for the 'years' view.
-  const years = useMemo(() => Array.from({ length: 12 }, (_, i) => viewDate.getFullYear() - 6 + i), [viewDate]);
+  const years = useMemo(
+    () => Array.from({ length: 12 }, (_, i) => viewDate.getFullYear() - 6 + i),
+    [viewDate],
+  );
 
   // Effect to handle clicks outside the date picker to close it.
   useEffect(() => {
@@ -56,11 +59,15 @@ const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
   // which is crucial for performance and preventing unnecessary re-renders of child elements.
   const handleDateSelect = useCallback(
     (day) => {
-      const newDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), day);
+      const newDate = new Date(
+        viewDate.getFullYear(),
+        viewDate.getMonth(),
+        day,
+      );
       onChange(newDate);
       setIsOpen(false);
     },
-    [onChange, viewDate]
+    [onChange, viewDate],
   );
 
   const handleMonthSelect = useCallback(
@@ -68,7 +75,7 @@ const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
       setViewDate(new Date(viewDate.getFullYear(), month, 1));
       setView("days"); // Switch back to the day view.
     },
-    [viewDate]
+    [viewDate],
   );
 
   const handleYearSelect = useCallback(
@@ -76,16 +83,34 @@ const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
       setViewDate(new Date(year, viewDate.getMonth(), 1));
       setView("months"); // Switch to the month view after selecting a year.
     },
-    [viewDate]
+    [viewDate],
   );
 
   // Navigation callbacks
-  const prevMonth = useCallback(() => setViewDate((d) => new Date(d.getFullYear(), d.getMonth() - 1, 1)), []);
-  const nextMonth = useCallback(() => setViewDate((d) => new Date(d.getFullYear(), d.getMonth() + 1, 1)), []);
-  const prevYear = useCallback(() => setViewDate((d) => new Date(d.getFullYear() - 1, d.getMonth(), 1)), []);
-  const nextYear = useCallback(() => setViewDate((d) => new Date(d.getFullYear() + 1, d.getMonth(), 1)), []);
-  const prevYearRange = useCallback(() => setViewDate((d) => new Date(d.getFullYear() - 12, d.getMonth(), 1)), []);
-  const nextYearRange = useCallback(() => setViewDate((d) => new Date(d.getFullYear() + 12, d.getMonth(), 1)), []);
+  const prevMonth = useCallback(
+    () => setViewDate((d) => new Date(d.getFullYear(), d.getMonth() - 1, 1)),
+    [],
+  );
+  const nextMonth = useCallback(
+    () => setViewDate((d) => new Date(d.getFullYear(), d.getMonth() + 1, 1)),
+    [],
+  );
+  const prevYear = useCallback(
+    () => setViewDate((d) => new Date(d.getFullYear() - 1, d.getMonth(), 1)),
+    [],
+  );
+  const nextYear = useCallback(
+    () => setViewDate((d) => new Date(d.getFullYear() + 1, d.getMonth(), 1)),
+    [],
+  );
+  const prevYearRange = useCallback(
+    () => setViewDate((d) => new Date(d.getFullYear() - 12, d.getMonth(), 1)),
+    [],
+  );
+  const nextYearRange = useCallback(
+    () => setViewDate((d) => new Date(d.getFullYear() + 12, d.getMonth(), 1)),
+    [],
+  );
 
   // Toggles between days -> months -> years views.
   const handleViewChange = useCallback(() => {
@@ -94,15 +119,24 @@ const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
 
   // Renders the grid of days for the current month.
   const renderDays = useCallback(() => {
-    const daysInMonth = getDaysInMonth(viewDate.getFullYear(), viewDate.getMonth());
-    const firstDay = getFirstDayOfMonth(viewDate.getFullYear(), viewDate.getMonth());
+    const daysInMonth = getDaysInMonth(
+      viewDate.getFullYear(),
+      viewDate.getMonth(),
+    );
+    const firstDay = getFirstDayOfMonth(
+      viewDate.getFullYear(),
+      viewDate.getMonth(),
+    );
     const blanks = Array(firstDay).fill(null);
     const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
 
     return (
       <div className="grid grid-cols-7 gap-1 text-center">
         {DAYS_OF_WEEK_SHORT.map((day) => (
-          <div key={day} className="text-xs font-bold text-slate-500 dark:text-slate-400">
+          <div
+            key={day}
+            className="text-xs font-bold text-slate-500 dark:text-slate-400"
+          >
             {day}
           </div>
         ))}
@@ -110,21 +144,29 @@ const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
           <div key={`blank-${i}`} />
         ))}
         {days.map((day) => {
-          const date = new Date(viewDate.getFullYear(), viewDate.getMonth(), day);
+          const date = new Date(
+            viewDate.getFullYear(),
+            viewDate.getMonth(),
+            day,
+          );
           date.setHours(0, 0, 0, 0);
-          const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString();
-          const isDisabled = (minDate && date < minDate) || (maxDate && date > maxDate);
+          const isSelected =
+            selectedDate && date.toDateString() === selectedDate.toDateString();
+          const isDisabled =
+            (minDate && date < minDate) || (maxDate && date > maxDate);
 
           return (
             <button
               key={day}
               onClick={() => handleDateSelect(day)}
               disabled={isDisabled}
-              className={`w-9 h-9 rounded-full transition-colors duration-150 ${
-                isSelected ? "bg-[rgb(79_70_229)] text-white font-bold" : "hover:bg-slate-200 dark:hover:bg-slate-600"
+              className={`h-9 w-9 rounded-full transition-colors duration-150 ${
+                isSelected
+                  ? "bg-[rgb(79_70_229)] font-bold text-white"
+                  : "hover:bg-slate-200 dark:hover:bg-slate-600"
               } ${
                 isDisabled
-                  ? "text-slate-400 dark:text-slate-500 cursor-not-allowed"
+                  ? "cursor-not-allowed text-slate-400 dark:text-slate-500"
                   : "text-slate-700 dark:text-slate-300"
               }`}
             >
@@ -144,14 +186,14 @@ const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
           <button
             key={month}
             onClick={() => handleMonthSelect(index)}
-            className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+            className="rounded-lg p-2 transition-colors hover:bg-slate-200 dark:hover:bg-slate-600"
           >
             {month.substring(0, 3)}
           </button>
         ))}
       </div>
     ),
-    [handleMonthSelect]
+    [handleMonthSelect],
   );
 
   // Renders the grid of years.
@@ -162,14 +204,14 @@ const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
           <button
             key={year}
             onClick={() => handleYearSelect(year)}
-            className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+            className="rounded-lg p-2 transition-colors hover:bg-slate-200 dark:hover:bg-slate-600"
           >
             {year}
           </button>
         ))}
       </div>
     ),
-    [years, handleYearSelect]
+    [years, handleYearSelect],
   );
 
   // Action button callbacks
@@ -189,30 +231,48 @@ const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
       <button
         id={id}
         onClick={() => setIsOpen((o) => !o)}
-        className="w-full flex justify-between items-center px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm text-left focus:outline-none focus:ring-1 focus:ring-[rgb(79_70_229)] focus:border-[rgb(79_70_229)] sm:text-sm"
+        className="flex w-full items-center justify-between rounded-md border border-slate-300 bg-white px-3 py-2 text-left shadow-sm focus:border-[rgb(79_70_229)] focus:ring-1 focus:ring-[rgb(79_70_229)] focus:outline-none sm:text-sm dark:border-slate-600 dark:bg-slate-800"
       >
-        <span>{selectedDate ? selectedDate.toLocaleDateString() : "Select a date"}</span>
+        <span>
+          {selectedDate ? selectedDate.toLocaleDateString() : "Select a date"}
+        </span>
         <CalendarIcon className="h-5 w-5 text-slate-400" />
       </button>
       {/* The popover calendar */}
       {isOpen && (
-        <div className="absolute z-10 mt-2 w-72 bg-white dark:bg-slate-800 rounded-lg shadow-2xl p-4 border border-slate-200 dark:border-slate-700 animate-fade-in">
+        <div className="animate-fade-in absolute z-10 mt-2 w-72 rounded-lg border border-slate-200 bg-white p-4 shadow-2xl dark:border-slate-700 dark:bg-slate-800">
           {/* Calendar Header with navigation and view switcher */}
-          <div className="flex justify-between items-center mb-4">
+          <div className="mb-4 flex items-center justify-between">
             <button
-              onClick={view === "days" ? prevMonth : view === "months" ? prevYear : prevYearRange}
-              className="p-1 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700"
+              onClick={
+                view === "days"
+                  ? prevMonth
+                  : view === "months"
+                    ? prevYear
+                    : prevYearRange
+              }
+              className="rounded-full p-1 hover:bg-slate-200 dark:hover:bg-slate-700"
             >
               <ChevronLeftIcon />
             </button>
-            <button onClick={handleViewChange} className="font-semibold text-[rgb(99_102_241)] hover:underline">
-              {view === "days" && `${MONTH_NAMES[viewDate.getMonth()]} ${viewDate.getFullYear()}`}
+            <button
+              onClick={handleViewChange}
+              className="font-semibold text-[rgb(99_102_241)] hover:underline"
+            >
+              {view === "days" &&
+                `${MONTH_NAMES[viewDate.getMonth()]} ${viewDate.getFullYear()}`}
               {view === "months" && viewDate.getFullYear()}
               {view === "years" && `${years[0]} - ${years[years.length - 1]}`}
             </button>
             <button
-              onClick={view === "days" ? nextMonth : view === "months" ? nextYear : nextYearRange}
-              className="p-1 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700"
+              onClick={
+                view === "days"
+                  ? nextMonth
+                  : view === "months"
+                    ? nextYear
+                    : nextYearRange
+              }
+              className="rounded-full p-1 hover:bg-slate-200 dark:hover:bg-slate-700"
             >
               <ChevronRightIcon />
             </button>
@@ -224,11 +284,17 @@ const DatePicker = ({ id, selectedDate, onChange, minDate, maxDate }) => {
           {view === "years" && renderYears()}
 
           {/* Footer with Today and Clear buttons */}
-          <div className="flex justify-between mt-4 text-sm">
-            <button onClick={handleTodayClick} className="font-medium text-[rgb(79_70_229)] hover:underline">
+          <div className="mt-4 flex justify-between text-sm">
+            <button
+              onClick={handleTodayClick}
+              className="font-medium text-[rgb(79_70_229)] hover:underline"
+            >
               Today
             </button>
-            <button onClick={handleClearClick} className="font-medium text-red-500 hover:underline">
+            <button
+              onClick={handleClearClick}
+              className="font-medium text-red-500 hover:underline"
+            >
               Clear
             </button>
           </div>
@@ -257,7 +323,15 @@ export const MONTH_NAMES = [
 ];
 
 // Short day of the week names, used for the header in the DatePicker calendar view.
-export const DAYS_OF_WEEK_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+export const DAYS_OF_WEEK_SHORT = [
+  "Sun",
+  "Mon",
+  "Tue",
+  "Wed",
+  "Thu",
+  "Fri",
+  "Sat",
+];
 
 /**
  * A simple, reusable SVG icon component for a calendar.

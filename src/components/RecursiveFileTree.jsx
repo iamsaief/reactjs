@@ -65,7 +65,7 @@ export function RecursiveFileTreeItem({ node }) {
 export default function RecursiveFileTree() {
   return (
     <div className="h-screen bg-gradient-to-br from-gray-950 via-slate-900 to-slate-950 px-4 pt-14 pb-4 md:py-8">
-      <div className="mx-auto max-h-full min-h-1/2 w-full max-w-sm overflow-y-auto rounded-lg bg-white p-4 shadow-lg">
+      <div className="mx-auto max-h-full min-h-max w-full max-w-lg rounded-xl border border-slate-200 bg-white p-6 shadow-lg dark:border-slate-700 dark:bg-slate-800/50">
         <h1 className="mb-4 text-2xl font-bold">Recursive File Tree</h1>
         <ul>
           {nodes.map((node) => (
