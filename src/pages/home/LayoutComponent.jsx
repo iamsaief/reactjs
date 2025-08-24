@@ -3,26 +3,29 @@ import { componentRoutesData } from "../../routes";
 import { cn } from "../../utils/cn";
 
 export const LayoutComponent = () => {
+  const sortedComponentData = componentRoutesData.sort((a, b) =>
+    a.metadata.name.localeCompare(b.metadata.name),
+  );
+
   return (
     <>
       <div className="mx-auto max-w-4xl">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {componentRoutesData?.map((component, index) => (
+          {sortedComponentData?.map((component, index) => (
             <div
               key={component.id}
               className="group animate-fade-in space-y-3 rounded-lg border border-gray-700/20 bg-gray-800/30 p-6 backdrop-blur-sm transition-all duration-300 hover:border-gray-600/30 hover:bg-gray-800/50"
               style={{ animationDelay: `${index * 50}ms` }}
             >
               <div className="flex items-center justify-between">
+                <Link to={component.path} className="absolute inset-0" />
                 <h3 className="text-lg font-semibold text-white transition-colors duration-200 group-hover:text-blue-300">
-                  <Link to={component.path} className="hover:underline">
-                    {component.metadata.name}
-                  </Link>
+                  {component.metadata.name}
                 </h3>
 
                 <div
                   className={cn(
-                    "rounded-lg border border-gray-600/20 bg-gray-700/40 px-2 py-1 text-xs leading-none",
+                    "rounded-[6px] border border-gray-600/20 bg-gray-700/40 px-2 py-1 text-xs leading-none",
                     colorMap[index % colorMap.length],
                   )}
                 >

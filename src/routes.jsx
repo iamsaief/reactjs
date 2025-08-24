@@ -1,4 +1,3 @@
-import RecursiveFileTree from "./components/RecursiveFileTree";
 import {
   ChronoCraft,
   EliteShop,
@@ -11,6 +10,8 @@ import {
 import { Checkout } from "./projects/elite-shop/components/Checkout";
 import { Analytics, DataTable, Settings } from "./projects/x-dashboard/pages";
 import DatePickerDemo from "./components/date-picker/DatePicker";
+import RecursiveFileTreeDemo from "./components/RecursiveFileTree";
+import SlidingTabsDemo from "./components/SlidingTabs";
 
 export const projectRoutesData = [
   {
@@ -131,12 +132,12 @@ export const componentRoutesData = [
   {
     id: "recursive-file-tree",
     path: "/components/recursive-file-tree",
-    element: <RecursiveFileTree />,
+    element: <RecursiveFileTreeDemo />,
     metadata: {
       name: "Recursive File Tree",
       technologies: ["React", "Tailwind CSS", "Framer Motion"],
       year: "2025",
-      tag: "UI",
+      tag: "Data Structure",
     },
   },
   {
@@ -148,6 +149,17 @@ export const componentRoutesData = [
       technologies: ["React", "Tailwind CSS", "Framer Motion"],
       year: "2025",
       tag: "Data Display",
+    },
+  },
+  {
+    id: "sliding-tabs",
+    path: "/components/sliding-tabs",
+    element: <SlidingTabsDemo />,
+    metadata: {
+      name: "Sliding Tabs",
+      technologies: ["React", "Tailwind CSS"],
+      year: "2025",
+      tag: "Navigation",
     },
   },
 ];

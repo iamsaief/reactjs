@@ -26,8 +26,8 @@ export const LayoutProject = () => {
             >
               <div className="flex items-center justify-between">
                 {/* <Link to={path} className="absolute inset-0" /> */}
-                <div className="flex-1">
-                  <div className="mb-2 flex items-center gap-4">
+                <div className="flex-1 space-y-3">
+                  <div className="flex items-center gap-4">
                     <h3 className="text-lg font-semibold text-white transition-colors duration-200 group-hover:text-blue-300">
                       <Link to={path} className="hover:underline">
                         {name}

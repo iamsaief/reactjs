@@ -1,59 +1,62 @@
+import { useMemo } from "react";
 import { AppWindow, Component, Heart } from "lucide-react";
 import { useLocation, useNavigate, Outlet } from "react-router";
 import { BgShapes } from "./BgShapes";
 import { PageMeta } from "../../components/PageMeta";
+import { SlidingTabs } from "../../components/SlidingTabs";
 
 export const HomePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Determine active layout based on current route
-  const activeLayout = location.pathname === "/components" ? "list-2" : "list-1";
+  const layouts = useMemo(
+    () => [
+      { key: "projects", label: "Projects", icon: AppWindow, to: "/projects" },
+      {
+        key: "components",
+        label: "Components",
+        icon: Component,
+        to: "/components",
+      },
+    ],
+    [],
+  );
+
+  const keyFromPath = (pathname) =>
+    pathname.startsWith("/components") ? "components" : "projects";
+  const activeLayout = keyFromPath(location.pathname);
+
+  const onSelectTab = (key) => {
+    const target = layouts.find((l) => l.key === key);
+    if (target) navigate(target.to);
+  };
 
   return (
     <>
       <PageMeta title="React.js" favicon="⚛️" />
 
-      <div className="min-h-screen bg-gradient-to-br from-gray-950 via-slate-900 to-slate-950 relative overflow-hidden">
+      <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-950 via-slate-900 to-slate-950">
         <BgShapes />
 
         <main className="relative z-10 container mx-auto px-6 py-12">
-          <div className="text-center mb-12">
-            <h1 className="text-5xl/[1.2] font-bold bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent mb-6 animate-fade-in">
+          <div className="mb-12 text-center">
+            <h1 className="animate-fade-in mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-5xl/[1.2] font-bold text-transparent">
               Projects
             </h1>
-            <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed animate-fade-in delay-200">
-              A curated collection of React applications, components, and experimental projects showcasing modern web
-              development techniques and creative solutions.
+            <p className="animate-fade-in mx-auto max-w-2xl leading-relaxed text-gray-300 delay-200">
+              A curated collection of React applications, components, and
+              experimental projects showcasing modern web development techniques
+              and creative solutions.
             </p>
           </div>
 
           {/* Layout Toggle */}
-          <div className="flex justify-center mb-12 animate-fade-in delay-300">
-            <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-full p-1 flex">
-              <button
-                onClick={() => navigate("/projects")}
-                className={`inline-flex items-center justify-center gap-2 whitespace-nowrap disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 ${
-                  activeLayout === "list-1"
-                    ? "bg-white text-black hover:bg-gray-100"
-                    : "text-gray-300 hover:text-white hover:bg-gray-700"
-                }`}
-              >
-                <AppWindow className="w-4 h-4" />
-                Projects
-              </button>
-              <button
-                onClick={() => navigate("/components")}
-                className={`inline-flex items-center justify-center gap-2 whitespace-nowrap disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 ${
-                  activeLayout === "list-2"
-                    ? "bg-white text-black hover:bg-gray-100"
-                    : "text-gray-300 hover:text-white hover:bg-gray-700"
-                }`}
-              >
-                <Component className="w-4 h-4" />
-                Components
-              </button>
-            </div>
+          <div className="animate-fade-in mb-12 flex justify-center delay-300">
+            <SlidingTabs
+              items={layouts}
+              activeKey={activeLayout}
+              onSelect={(key) => onSelectTab(key)}
+            />
           </div>
 
           {/* Render child routes via Outlet */}
@@ -62,10 +65,13 @@ export const HomePage = () => {
           </div>
 
           {/* Footer */}
-          <footer className="max-w-4xl mx-auto text-gray-300 border-gray-300/10 border-t mt-50 py-6 text-center">
-            <p className="text-gray-500 text-sm flex items-center justify-center gap-1">
+          <footer className="mx-auto mt-50 max-w-4xl border-t border-gray-300/10 py-6 text-center text-gray-300">
+            <p className="flex items-center justify-center gap-1 text-sm text-gray-500">
               Build with <Heart className="h-4 w-4" /> by{" "}
-              <a href="https://www.linkedin.com/in/saiefalemon/" className="hover:underline">
+              <a
+                href="https://www.linkedin.com/in/saiefalemon/"
+                className="hover:underline"
+              >
                 Saief Al Emon
               </a>
             </p>
