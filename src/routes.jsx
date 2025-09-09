@@ -12,6 +12,7 @@ import { Analytics, DataTable, Settings } from "./projects/x-dashboard/pages";
 import DatePickerDemo from "./components/date-picker/DatePicker";
 import RecursiveFileTreeDemo from "./components/RecursiveFileTree";
 import SlidingTabsDemo from "./components/SlidingTabs";
+import LayoutDemo from "./components/LayoutDemo";
 
 export const projectRoutesData = [
   {
@@ -132,7 +133,11 @@ export const componentRoutesData = [
   {
     id: "recursive-file-tree",
     path: "/components/recursive-file-tree",
-    element: <RecursiveFileTreeDemo />,
+    element: (
+      <LayoutDemo>
+        <RecursiveFileTreeDemo />
+      </LayoutDemo>
+    ),
     metadata: {
       name: "Recursive File Tree",
       technologies: ["React", "Tailwind CSS", "Framer Motion"],
@@ -143,7 +148,11 @@ export const componentRoutesData = [
   {
     id: "date-picker",
     path: "/components/date-picker",
-    element: <DatePickerDemo />,
+    element: (
+      <LayoutDemo>
+        <DatePickerDemo />
+      </LayoutDemo>
+    ),
     metadata: {
       name: "Date Picker",
       technologies: ["React", "Tailwind CSS", "Framer Motion"],
@@ -154,7 +163,11 @@ export const componentRoutesData = [
   {
     id: "sliding-tabs",
     path: "/components/sliding-tabs",
-    element: <SlidingTabsDemo />,
+    element: (
+      <LayoutDemo>
+        <SlidingTabsDemo />
+      </LayoutDemo>
+    ),
     metadata: {
       name: "Sliding Tabs",
       technologies: ["React", "Tailwind CSS"],

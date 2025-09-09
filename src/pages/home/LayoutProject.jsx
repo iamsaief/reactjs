@@ -24,25 +24,27 @@ export const LayoutProject = () => {
               className="group animate-fade-in rounded-lg border border-gray-700/20 bg-gray-800/30 p-6 backdrop-blur-sm transition-all duration-300 hover:border-gray-600/30 hover:bg-gray-800/50"
               style={{ animationDelay: `${index * 50}ms` }}
             >
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between gap-1">
                 {/* <Link to={path} className="absolute inset-0" /> */}
-                <div className="flex-1 space-y-3">
-                  <div className="flex items-center gap-4">
+                <div className="space-y-3">
+                  <div className="flex flex-wrap items-center gap-3">
                     <h3 className="text-lg font-semibold text-white transition-colors duration-200 group-hover:text-blue-300">
                       <Link to={path} className="hover:underline">
                         {name}
                       </Link>
                     </h3>
-                    <span className="text-sm text-gray-400">{year}</span>
-                    <span
-                      className={`rounded-[6px] border px-2 py-1 text-xs leading-none ${
-                        status === "Completed"
-                          ? "border-emerald-500/30 bg-emerald-500/20 text-emerald-300"
-                          : "border-yellow-500/30 bg-yellow-500/20 text-yellow-300"
-                      }`}
-                    >
-                      {status}
-                    </span>
+                    <div className="flex items-center gap-3">
+                      <span className="text-sm text-gray-400">{year}</span>
+                      <span
+                        className={`rounded-[6px] border px-2 py-1 text-xs leading-none ${
+                          status === "Completed"
+                            ? "border-emerald-500/30 bg-emerald-500/20 text-emerald-300"
+                            : "border-yellow-500/30 bg-yellow-500/20 text-yellow-300"
+                        }`}
+                      >
+                        {status}
+                      </span>
+                    </div>
                   </div>
 
                   <div className="flex flex-wrap gap-2">
@@ -57,7 +59,7 @@ export const LayoutProject = () => {
                   </div>
                 </div>
 
-                <div className="ml-6 flex gap-1">
+                <div className="flex gap-1">
                   <Link
                     to={path}
                     className="rounded-lg p-2 text-gray-400 transition-colors duration-200 hover:bg-gray-700/50 hover:text-blue-300"

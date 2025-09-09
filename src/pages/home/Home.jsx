@@ -4,6 +4,7 @@ import { useLocation, useNavigate, Outlet } from "react-router";
 import { BgShapes } from "./BgShapes";
 import { PageMeta } from "../../components/PageMeta";
 import { SlidingTabs } from "../../components/SlidingTabs";
+import Footer from "../../components/Footer";
 
 export const HomePage = () => {
   const location = useLocation();
@@ -40,10 +41,10 @@ export const HomePage = () => {
 
         <main className="relative z-10 container mx-auto px-6 py-12">
           <div className="mb-12 text-center">
-            <h1 className="animate-fade-in mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-5xl/[1.2] font-bold text-transparent">
+            <h1 className="mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-5xl/[1.2] font-bold text-transparent">
               Projects
             </h1>
-            <p className="animate-fade-in mx-auto max-w-2xl leading-relaxed text-gray-300 delay-200">
+            <p className="mx-auto max-w-2xl leading-relaxed text-gray-300 delay-200">
               A curated collection of React applications, components, and
               experimental projects showcasing modern web development techniques
               and creative solutions.
@@ -51,7 +52,7 @@ export const HomePage = () => {
           </div>
 
           {/* Layout Toggle */}
-          <div className="animate-fade-in mb-12 flex justify-center delay-300">
+          <div className="mb-12 flex justify-center delay-300">
             <SlidingTabs
               items={layouts}
               activeKey={activeLayout}
@@ -65,17 +66,7 @@ export const HomePage = () => {
           </div>
 
           {/* Footer */}
-          <footer className="mx-auto mt-50 max-w-4xl border-t border-gray-300/10 py-6 text-center text-gray-300">
-            <p className="flex items-center justify-center gap-1 text-sm text-gray-500">
-              Build with <Heart className="h-4 w-4" /> by{" "}
-              <a
-                href="https://www.linkedin.com/in/saiefalemon/"
-                className="hover:underline"
-              >
-                Saief Al Emon
-              </a>
-            </p>
-          </footer>
+          <Footer />
         </main>
       </div>
     </>

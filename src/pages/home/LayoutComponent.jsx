@@ -19,17 +19,19 @@ export const LayoutComponent = () => {
             >
               <div className="flex items-center justify-between">
                 <Link to={component.path} className="absolute inset-0" />
-                <h3 className="text-lg font-semibold text-white transition-colors duration-200 group-hover:text-blue-300">
-                  {component.metadata.name}
-                </h3>
+                <div className="flex flex-wrap items-center gap-3">
+                  <h3 className="text-lg font-semibold text-white transition-colors duration-200 group-hover:text-blue-300">
+                    {component.metadata.name}
+                  </h3>
 
-                <div
-                  className={cn(
-                    "rounded-[6px] border border-gray-600/20 bg-gray-700/40 px-2 py-1 text-xs leading-none",
-                    colorMap[index % colorMap.length],
-                  )}
-                >
-                  {component.metadata.tag}
+                  <div
+                    className={cn(
+                      "rounded-[6px] border border-gray-600/20 bg-gray-700/40 px-2 py-1 text-xs leading-none whitespace-nowrap",
+                      colorMap[index % colorMap.length],
+                    )}
+                  >
+                    {component.metadata.tag}
+                  </div>
                 </div>
               </div>
 

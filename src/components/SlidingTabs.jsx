@@ -26,6 +26,7 @@ export const SlidingTabs = ({
   const slidingBgRef = useRef(null);
   const buttonsRef = useRef([]);
   const didInitRef = useRef(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const activeIndex = useMemo(
     () =>
@@ -36,6 +37,36 @@ export const SlidingTabs = ({
     [items, activeKey],
   );
 
+  // Why: sliding pill can misalign on crowded, small viewports
+  // Rule: on mobile with >2 items, disable pill and style the active button instead
+  const isSlidingEnabled = useMemo(
+    () => !(isMobile && items.length > 2),
+    [isMobile, items.length],
+  );
+  // When pill is disabled, allow horizontal scroll for overflowed tabs
+  const isScrollable = useMemo(
+    () => isMobile && items.length > 2,
+    [isMobile, items.length],
+  );
+
+  // Detect mobile once and keep it in state (updates on resize/media change)
+  useEffect(() => {
+    try {
+      const mq = window.matchMedia("(max-width: 640px)");
+      const update = () => setIsMobile(mq.matches);
+      update();
+      mq.addEventListener("change", update);
+      return () => mq.removeEventListener("change", update);
+    } catch {
+      // Fallback if matchMedia is unavailable
+      const handleResize = () => setIsMobile(window.innerWidth <= 640);
+      handleResize();
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
+
+  // Places/measures the pill under the active button
   const placePill = (animate) => {
     const pill = slidingBgRef.current;
     const activeButton = buttonsRef.current[activeIndex];
@@ -58,39 +89,39 @@ export const SlidingTabs = ({
     pill.style.width = `${offsetWidth}px`;
   };
 
-  // Initial placement before paint; subsequent animated moves
+  // Initial placement (no animation) then animate on subsequent updates
   useLayoutEffect(() => {
+    if (!isSlidingEnabled) return;
     if (!didInitRef.current) {
       placePill(false);
       didInitRef.current = true;
     } else {
       placePill(true);
     }
-  }, [activeIndex, items.length]);
-
-  // Recalculate on resize
-  useEffect(() => {
-    const onResize = () => placePill(false);
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, []);
+  }, [activeIndex, items.length, isSlidingEnabled]);
 
   return (
     <div
       ref={containerRef}
       className={cn(
-        "relative flex justify-center gap-1 rounded-full border border-gray-700 bg-slate-900/70 p-1 backdrop-blur-sm",
+        "relative flex gap-1 rounded-full border border-gray-700 bg-slate-900/70 p-1 backdrop-blur-sm",
+        isScrollable
+          ? "flex-nowrap justify-start overflow-x-auto whitespace-nowrap"
+          : "justify-center",
         className,
       )}
     >
-      <span
-        ref={slidingBgRef}
-        className={cn(
-          "absolute top-1 bottom-1 rounded-full bg-white",
-          pillClassName,
-        )}
-        style={{ left: 0, width: 0, transform: "translateX(0px)" }}
-      />
+      {/* Sliding pill: only when enabled (desktop or <=2 items) */}
+      {isSlidingEnabled && (
+        <span
+          ref={slidingBgRef}
+          className={cn(
+            "absolute top-1 bottom-1 rounded-full bg-white",
+            pillClassName,
+          )}
+          style={{ left: 0, width: 0, transform: "translateX(0px)" }}
+        />
+      )}
 
       {items.map((item, index) => {
         const Icon = item.icon;
@@ -104,10 +135,13 @@ export const SlidingTabs = ({
               onSelect?.(item.key, index);
             }}
             className={cn(
-              "relative z-10 inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-300",
+              "relative z-10 inline-flex shrink-0 items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-300",
+              // Active style: pill paints the background; when pill is off, paint the button
               isActive
-                ? "text-black"
-                : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                ? isSlidingEnabled
+                  ? "text-black"
+                  : "bg-white text-black"
+                : "text-gray-300 hover:bg-gray-700/40 hover:text-white",
               buttonClassName,
             )}
           >
@@ -133,68 +167,66 @@ export default function SlidingTabsDemo() {
   const [active, setActive] = useState(items[0]?.key ?? "grid");
 
   return (
-    <div className="h-screen bg-gradient-to-br from-gray-950 via-slate-900 to-slate-950 px-4 pt-14 pb-4 md:py-8">
-      <div className="mx-auto max-h-full min-h-max w-full max-w-lg rounded-xl border border-slate-200 bg-white p-6 shadow-lg">
-        <h1 className="mb-4 text-2xl font-bold">Sliding Tabs</h1>
-        <div className="space-y-4">
-          <SlidingTabs
-            items={items}
-            activeKey={active}
-            onSelect={(key) => setActive(key)}
-            className="bg-slate-800"
-          />
-          <div className="text-sm text-slate-600 dark:text-slate-300">
-            Active:{" "}
-            <span className="font-semibold">
-              {items.find((item) => item.key === active)?.label}
-            </span>
-          </div>
-          {active === "grid" && (
-            <div className="grid grid-cols-2 gap-3">
-              {[1, 2, 3, 4].map((n) => (
-                <div
-                  key={n}
-                  className="h-20 rounded-lg border border-slate-200 bg-slate-50 p-3 text-slate-700 shadow-xs"
-                >
-                  Grid card {n}
-                </div>
-              ))}
-            </div>
-          )}
-          {active === "list" && (
-            <ul className="divide-y divide-slate-200 overflow-hidden rounded-lg border border-slate-200">
-              {["Alpha", "Beta", "Gamma", "Delta"].map((label) => (
-                <li key={label} className="p-3">
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium text-slate-700">{label}</span>
-                    <span className="text-xs text-slate-500">details</span>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
-          {active === "simple" && (
-            <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-slate-700">
-              This is a minimal view. Put any simple summary here.
-            </div>
-          )}
-          {active === "components" && (
-            <div className="space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-4">
-              <div className="flex gap-2">
-                <button className="rounded-md bg-slate-900 px-3 py-1 text-sm text-white">
-                  Button A
-                </button>
-                <button className="rounded-md bg-slate-900/80 px-3 py-1 text-sm text-white">
-                  Button B
-                </button>
-              </div>
-              <p className="text-sm text-slate-600">
-                Showcase UI components related content here.
-              </p>
-            </div>
-          )}
+    <>
+      <h1 className="mb-4 text-2xl font-bold">Sliding Tabs</h1>
+      <div className="space-y-4">
+        <SlidingTabs
+          items={items}
+          activeKey={active}
+          onSelect={(key) => setActive(key)}
+          className="bg-slate-800"
+        />
+        <div className="text-sm text-slate-600 dark:text-slate-300">
+          Active:{" "}
+          <span className="font-semibold">
+            {items.find((item) => item.key === active)?.label}
+          </span>
         </div>
+        {active === "grid" && (
+          <div className="grid grid-cols-2 gap-3">
+            {[1, 2, 3, 4].map((n) => (
+              <div
+                key={n}
+                className="h-20 rounded-lg border border-slate-200 bg-slate-50 p-3 text-slate-700 shadow-xs"
+              >
+                Grid card {n}
+              </div>
+            ))}
+          </div>
+        )}
+        {active === "list" && (
+          <ul className="divide-y divide-slate-200 overflow-hidden rounded-lg border border-slate-200">
+            {["Alpha", "Beta", "Gamma", "Delta"].map((label) => (
+              <li key={label} className="p-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-medium text-slate-700">{label}</span>
+                  <span className="text-xs text-slate-500">details</span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+        {active === "simple" && (
+          <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-slate-700">
+            This is a minimal view. Put any simple summary here.
+          </div>
+        )}
+        {active === "components" && (
+          <div className="space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-4">
+            <div className="flex gap-2">
+              <button className="rounded-md bg-slate-900 px-3 py-1 text-sm text-white">
+                Button A
+              </button>
+              <button className="rounded-md bg-slate-900/80 px-3 py-1 text-sm text-white">
+                Button B
+              </button>
+            </div>
+            <p className="text-sm text-slate-600">
+              Showcase UI components related content here.
+            </p>
+          </div>
+        )}
       </div>
-    </div>
+    </>
   );
 }

@@ -19,105 +19,103 @@ export default function DatePickerDemo() {
   const [dateNoFooter, setDateNoFooter] = useState(null);
 
   return (
-    <div className="h-screen overflow-y-auto bg-gradient-to-br from-gray-950 via-slate-900 to-slate-950 px-4 pt-14 pb-4 md:py-8">
-      <div className="mx-auto max-h-full min-h-max w-full max-w-lg rounded-xl border border-slate-200 bg-white p-6 shadow-lg dark:border-slate-700 dark:bg-slate-800/50">
-        <h1 className="mb-4 text-2xl font-bold">Date Picker</h1>
-        <div className="space-y-6">
-          <div>
-            <label
-              htmlFor="dp-basic"
-              className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300"
-            >
-              Basic
-            </label>
-            <DatePicker
-              id="dp-basic"
-              selectedDate={dateBasic}
-              onChange={setDateBasic}
-              placeholder="Select a date"
-              accentColor="#7525ff"
-            />
-          </div>
+    <>
+      <h1 className="mb-4 text-2xl font-bold">Date Picker</h1>
+      <div className="space-y-6">
+        <div>
+          <label
+            htmlFor="dp-basic"
+            className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300"
+          >
+            Basic
+          </label>
+          <DatePicker
+            id="dp-basic"
+            selectedDate={dateBasic}
+            onChange={setDateBasic}
+            placeholder="Select a date"
+            accentColor="#7525ff"
+          />
+        </div>
 
-          <div>
-            <label
-              htmlFor="dp-green"
-              className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300"
-            >
-              Custom Accent + Min/Max
-            </label>
-            <DatePicker
-              id="dp-green"
-              selectedDate={dateGreen}
-              onChange={setDateGreen}
-              minDate={new Date("2025-08-01")}
-              maxDate={new Date("2025-08-31")}
-              accentColor="#10b981"
-              placeholder="Any day in Aug 2025"
-            />
-          </div>
+        <div>
+          <label
+            htmlFor="dp-green"
+            className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300"
+          >
+            Custom Accent + Min/Max
+          </label>
+          <DatePicker
+            id="dp-green"
+            selectedDate={dateGreen}
+            onChange={setDateGreen}
+            minDate={new Date("2025-08-01")}
+            maxDate={new Date("2025-08-31")}
+            accentColor="#10b981"
+            placeholder="Any day in Aug 2025"
+          />
+        </div>
 
-          <div>
-            <label
-              htmlFor="dp-year"
-              className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300"
-            >
-              Years/Month view
-            </label>
-            <DatePicker
-              id="dp-year"
-              selectedDate={dateYearView}
-              onChange={setDateYearView}
-              defaultView="years"
-              accentColor="#f59e0b"
-              placeholder="Pick a year/month"
-            />
-          </div>
+        <div>
+          <label
+            htmlFor="dp-year"
+            className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300"
+          >
+            Years/Month view
+          </label>
+          <DatePicker
+            id="dp-year"
+            selectedDate={dateYearView}
+            onChange={setDateYearView}
+            defaultView="years"
+            accentColor="#f59e0b"
+            placeholder="Pick a year/month"
+          />
+        </div>
 
-          <div>
-            <label
-              htmlFor="dp-custom-fmt"
-              className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300"
-            >
-              Custom display format
-            </label>
-            <DatePicker
-              id="dp-custom-fmt"
-              selectedDate={dateCustomFmt}
-              onChange={setDateCustomFmt}
-              formatDate={(d) =>
-                d.toLocaleDateString(undefined, {
-                  weekday: "short",
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })
-              }
-              accentColor="#3b82f6"
-              placeholder="e.g., Tue, Jan 2, 2024"
-            />
-          </div>
+        <div>
+          <label
+            htmlFor="dp-custom-fmt"
+            className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300"
+          >
+            Custom display format
+          </label>
+          <DatePicker
+            id="dp-custom-fmt"
+            selectedDate={dateCustomFmt}
+            onChange={setDateCustomFmt}
+            formatDate={(d) =>
+              d.toLocaleDateString(undefined, {
+                weekday: "short",
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })
+            }
+            accentColor="#3b82f6"
+            placeholder="e.g., Tue, Jan 2, 2024"
+          />
+        </div>
 
-          <div>
-            <label
-              htmlFor="dp-no-footer"
-              className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300"
-            >
-              No Footer actions (Today/Clear)
-            </label>
-            <DatePicker
-              id="dp-no-footer"
-              selectedDate={dateNoFooter}
-              onChange={setDateNoFooter}
-              showToday={false}
-              showClear={false}
-              accentColor="#ef4444"
-              placeholder="Footer actions hidden"
-            />
-          </div>
+        <div>
+          <label
+            htmlFor="dp-no-footer"
+            className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300"
+          >
+            No Footer actions (Today/Clear)
+          </label>
+          <DatePicker
+            id="dp-no-footer"
+            selectedDate={dateNoFooter}
+            onChange={setDateNoFooter}
+            showToday={false}
+            showClear={false}
+            accentColor="#ef4444"
+            placeholder="Footer actions hidden"
+          />
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
