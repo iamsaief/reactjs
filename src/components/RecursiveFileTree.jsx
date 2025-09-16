@@ -1,6 +1,7 @@
 import { ChevronRight, File, FolderClosed, FolderOpen } from "lucide-react";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { PageMeta } from "./PageMeta";
 
 export function RecursiveFileTreeItem({ node }) {
   let [isOpen, setIsOpen] = useState(false);

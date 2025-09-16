@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { componentRoutesData } from "../../routes";
 import { cn } from "../../utils/cn";
+import { PageMeta } from "../../components/PageMeta";
 
 export const LayoutComponent = () => {
   const sortedComponentData = componentRoutesData.sort((a, b) =>
@@ -9,6 +10,8 @@ export const LayoutComponent = () => {
 
   return (
     <>
+      <PageMeta title="React | Components" />
+
       <div className="mx-auto max-w-4xl">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {sortedComponentData?.map((component, index) => (

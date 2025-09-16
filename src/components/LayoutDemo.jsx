@@ -18,10 +18,6 @@ export default function LayoutDemo({ children, backTo = "/components" }) {
     else navigate(backTo);
   };
 
-  useEffect(() => {
-    document.title = "Components | Demo";
-  }, []);
-
   return (
     <>
       <div className="min-h-screen bg-gradient-to-br from-gray-950 via-slate-900 to-slate-950 px-4 pt-14 pb-4 md:py-8">
