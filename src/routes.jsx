@@ -16,6 +16,42 @@ import LayoutDemo from "./components/LayoutDemo";
 
 export const projectRoutesData = [
   {
+    id: "skydeal",
+    element: () => {},
+    path: "https://waltonplaze-ecommerce.vercel.app/",
+    metadata: {
+      sourceCode: "https://github.com/iamsaief/waltonplaze-ecommerce/",
+      name: "SkyDeal - Flight Search & Booking",
+      technologies: [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "Context API",
+      ],
+      status: "Completed",
+      year: "2026",
+    },
+  },
+  {
+    id: "wp-ecommerce",
+    element: () => {},
+    path: "https://waltonplaze-ecommerce.vercel.app/",
+    metadata: {
+      sourceCode: "https://github.com/iamsaief/waltonplaze-ecommerce/",
+      name: "WaltonPlaza E-Commerce",
+      technologies: [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "GraphQL",
+        "Zustand",
+      ],
+      status: "Completed",
+      year: "2026",
+    },
+  },
+  {
     id: "10ms-ielts-course",
     path: "https://10ms-product-page.vercel.app",
     element: () => {},
@@ -32,19 +68,19 @@ export const projectRoutesData = [
       sourceCode: "https://github.com/iamsaief/10ms-product-page",
     },
   },
-  {
-    id: "task-manager",
-    path: "/projects/task-manager",
-    element: <TaskManager />,
-    metadata: {
-      name: "Task Manager",
-      technologies: ["React", "Context API", "useReducer", "Tailwind CSS"],
-      status: "Completed",
-      year: "2025",
-      sourceCode:
-        "https://github.com/iamsaief/reactjs/tree/main/src/projects/task-manager",
-    },
-  },
+  //   {
+  //     id: "task-manager",
+  //     path: "/projects/task-manager",
+  //     element: <TaskManager />,
+  //     metadata: {
+  //       name: "Task Manager",
+  //       technologies: ["React", "Context API", "useReducer", "Tailwind CSS"],
+  //       status: "Completed",
+  //       year: "2025",
+  //       sourceCode:
+  //         "https://github.com/iamsaief/reactjs/tree/main/src/projects/task-manager",
+  //     },
+  //   },
   {
     id: "chrono-craft",
     path: "/projects/chrono-craft",

@@ -4,8 +4,8 @@ import { ExternalLink, Github } from "lucide-react";
 import { PageMeta } from "../../components/PageMeta";
 
 const projectsData = projectRoutesData.filter((route) => route.metadata);
-const sortedProjectsData = projectsData.sort((a, b) =>
-  a.metadata.name.localeCompare(b.metadata.name),
+const sortedProjectsData = projectsData.sort(
+  (a, b) => b.metadata.year - a.metadata.year,
 );
 
 export const LayoutProject = () => {
